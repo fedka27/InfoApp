@@ -4,11 +4,8 @@ import com.appodeal.ads.Appodeal;
 import com.appodeal.ads.InterstitialCallbacks;
 import com.appodeal.ads.NonSkippableVideoCallbacks;
 
-import java.util.concurrent.TimeUnit;
-
-import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
-import test.infoapp.data.model.Config;
+import test.infoapp.injection.model.data.dto.Config;
 import test.infoapp.injection.model.managers.AdsManager;
 import test.infoapp.injection.model.repositories.ConfigRepository;
 import test.infoapp.util.connection.ConnectionUtilAbs;
@@ -48,21 +45,9 @@ public class SplashPresenter implements SplashContract.Presenter {
             return;
         }
 
-        // TODO: 31.10.2017 IsLocalData;
-        compositeDisposable.add(Observable.timer(2, TimeUnit.SECONDS)
-                .compose(rxSchedulersAbs.getComputationToMainTransformer())
-                .onErrorReturn(throwable -> 2L)
-                .map(aLong -> {
-                    configRepository.setConfig(new Config(null,
-                            false,
-                            true,
-                            true,
-                            50,
-                            50,
-                            true,
-                            3));
-                    return configRepository.getConfig();
-                })
+        compositeDisposable.add(configRepository.getConfig()
+                .compose(rxSchedulersAbs.getComputationToMainTransformerSingle())
+                .onErrorReturn(throwable -> new Config())
                 .subscribe(this::showAdsOrOpenNextScreen));
     }
 

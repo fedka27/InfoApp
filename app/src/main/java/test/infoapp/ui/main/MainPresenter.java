@@ -1,6 +1,6 @@
 package test.infoapp.ui.main;
 
-import test.infoapp.data.model.Config;
+import test.infoapp.injection.model.data.dto.Config;
 import test.infoapp.injection.model.repositories.ConfigRepository;
 
 public class MainPresenter implements MainContract.Presenter {
@@ -12,7 +12,7 @@ public class MainPresenter implements MainContract.Presenter {
 
     public MainPresenter(ConfigRepository configRepository) {
         this.configRepository = configRepository;
-        this.config = configRepository.getConfig();
+        this.config = configRepository.getConfigSaved();
     }
 
     @Override

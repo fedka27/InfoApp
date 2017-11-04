@@ -1,8 +1,10 @@
-package test.infoapp.data.model;
+package test.infoapp.injection.model.data.dto;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Config {
+import java.io.Serializable;
+
+public class Config implements Serializable {
     @SerializedName("config_button_url") private String config_button_url;
     @SerializedName("content_url") private String content_url;
     @SerializedName("isOffline") private boolean isOffline = true;

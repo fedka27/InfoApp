@@ -1,10 +1,10 @@
-package test.infoapp.data.model;
+package test.infoapp.injection.model.data.dto;
 
 import android.support.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 
-import static test.infoapp.data.model.ListItemType.TEXT;
+import static test.infoapp.injection.model.data.dto.ListItemType.TEXT;
 
 public class ListItem {
     @SerializedName("type") private String type;

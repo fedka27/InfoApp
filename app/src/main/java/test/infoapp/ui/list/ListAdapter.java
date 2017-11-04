@@ -11,13 +11,13 @@ import java.util.List;
 
 import butterknife.BindView;
 import test.infoapp.R;
-import test.infoapp.data.model.ListItem;
+import test.infoapp.injection.model.data.dto.ListItem;
 import test.infoapp.ui.base.BaseRecyclerAdapter;
 import test.infoapp.ui.base.BaseRecyclerViewHolder;
 import test.infoapp.ui.base.RecyclerRow;
 
-import static test.infoapp.data.model.ListItemType.LINK;
-import static test.infoapp.data.model.ListItemType.TEXT;
+import static test.infoapp.injection.model.data.dto.ListItemType.LINK;
+import static test.infoapp.injection.model.data.dto.ListItemType.TEXT;
 
 
 public class ListAdapter extends BaseRecyclerAdapter {

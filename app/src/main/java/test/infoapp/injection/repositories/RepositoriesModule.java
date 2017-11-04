@@ -22,6 +22,6 @@ public class RepositoriesModule {
     @Provides
     @Singleton
     AdsManager provideAdsManager(ConfigRepository configRepository) {
-        return new AdsManager(configRepository.getConfig().getAds_click_interval());
+        return new AdsManager(configRepository.getConfigSaved().getAds_click_interval());
     }
 }

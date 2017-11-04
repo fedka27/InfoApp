@@ -2,7 +2,7 @@ package test.infoapp.injection.model.managers;
 
 import java.util.Random;
 
-import test.infoapp.data.model.Config;
+import test.infoapp.injection.model.data.dto.Config;
 import test.infoapp.util.L;
 
 public class AdsManager {

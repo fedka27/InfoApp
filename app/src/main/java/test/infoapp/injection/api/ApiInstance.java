@@ -50,6 +50,7 @@ public class ApiInstance {
         return new OkHttpClient.Builder()
                 .cache(getCache(context))
                 .addInterceptor(getLoggingInterceptor())
+                .addNetworkInterceptor(getLoggingInterceptor())
                 .retryOnConnectionFailure(true)
                 .connectTimeout(CONNECT_TIMEOUT_SECONDS, TimeUnit.SECONDS)
                 .readTimeout(READ_TIMEOUT_SECONDS, TimeUnit.SECONDS)

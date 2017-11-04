@@ -1,8 +1,9 @@
 package test.infoapp.injection.model.repositories;
 
 import io.paperdb.Paper;
-import test.infoapp.data.model.Config;
+import io.reactivex.Single;
 import test.infoapp.injection.model.data.api.Api;
+import test.infoapp.injection.model.data.dto.Config;
 import test.infoapp.injection.model.data.mapper.ApiResponseMapper;
 
 public class ConfigRepository extends BaseRepository {
@@ -13,15 +14,21 @@ public class ConfigRepository extends BaseRepository {
         super(api, apiResponseMapper);
     }
 
-    public Config getConfig() {
+    public Config getConfigSaved() {
         return Paper.book().read(KEY_CONFIG, new Config());
     }
 
-    public void setConfig(Config config) {
+    public void saveConfig(Config config) {
         if (config == null) {
             Paper.book().delete(KEY_CONFIG);
             return;
         }
         Paper.book().write(KEY_CONFIG, config);
+    }
+
+    public Single<Config> getConfig() {
+        return api.getConfig()
+                .map(apiResponseMapper::map)
+                .doOnSuccess(this::saveConfig);
     }
 }

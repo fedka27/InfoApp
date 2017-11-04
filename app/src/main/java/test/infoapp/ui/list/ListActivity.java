@@ -14,8 +14,8 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import test.infoapp.R;
-import test.infoapp.data.model.ListItem;
 import test.infoapp.injection.ComponentProvider;
+import test.infoapp.injection.model.data.dto.ListItem;
 import test.infoapp.ui.base.BaseActivity;
 
 public class ListActivity extends BaseActivity implements ListContract.View {

@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
-import test.infoapp.data.model.ListItem;
-import test.infoapp.data.model.ListItemType;
+import test.infoapp.injection.model.data.dto.ListItem;
+import test.infoapp.injection.model.data.dto.ListItemType;
 import test.infoapp.injection.model.interactors.ViewInteractor;
 import test.infoapp.injection.model.managers.AdsManager;
 import test.infoapp.injection.model.repositories.ConfigRepository;
@@ -66,7 +66,7 @@ public class ListPresenter implements ListContract.Presenter {
     @Override
     public void onClick(ListItem listItem) {
         if (adsManager.isClickToAds()) {
-            if (adsManager.isVideoTypeAds(configRepository.getConfig())) {
+            if (adsManager.isVideoTypeAds(configRepository.getConfigSaved())) {
                 if (Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO)) view.showAdsVideo();
             } else {
                 if (Appodeal.isLoaded(Appodeal.INTERSTITIAL)) view.showAdsFullScreen();

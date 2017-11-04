@@ -2,7 +2,7 @@ package test.infoapp.ui.list;
 
 import java.util.List;
 
-import test.infoapp.data.model.ListItem;
+import test.infoapp.injection.model.data.dto.ListItem;
 import test.infoapp.ui.base.interfaces.BaseScreen;
 import test.infoapp.ui.base.interfaces.IProgressListener;
 import test.infoapp.ui.base.interfaces.IThrowableListener;
