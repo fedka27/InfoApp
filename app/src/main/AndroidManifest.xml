@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="test.infoapp">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <uses-feature
+        android:name="android.hardware.location"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.location.network"
+        android:required="false" />
+
+    <application
+        android:name=".App"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".ui.splash.SplashActivity"
+            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.main.MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.appodeal.ads.InterstitialActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name="com.appodeal.ads.VideoActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name="com.appodeal.ads.LoaderActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name="com.appodeal.ads.VideoPlayerActivity"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+
+        <receiver
+            android:name="com.appodeal.ads.AppodealPackageAddedReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="com.appodeal.ads.TestActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name="com.google.android.gms.ads.AdActivity"
+            android:theme="@android:style/Theme.Translucent" />
+        <activity
+            android:name="com.chartboost.sdk.CBImpressionActivity"
+            android:excludeFromRecents="true"
+            android:hardwareAccelerated="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+        <activity android:name="com.applovin.adview.AppLovinInterstitialActivity" />
+        <activity android:name="com.applovin.adview.AppLovinConfirmationActivity" />
+        <activity
+            android:name="com.mopub.mobileads.MoPubActivity"
+            android:theme="@android:style/Theme.Translucent" />
+        <activity android:name="com.mopub.common.MoPubBrowser" />
+        <activity android:name="com.mopub.mobileads.MraidActivity" />
+        <activity android:name="com.mopub.mobileads.MraidVideoPlayerActivity" />
+        <activity android:name="com.mopub.mobileads.RewardedMraidActivity" />
+        <activity
+            android:name="org.nexage.sourcekit.vast.activity.VASTActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity
+            android:name="org.nexage.sourcekit.vast.activity.VPAIDActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity
+            android:name="com.appodeal.ads.networks.vpaid.VPAIDActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity android:name="com.amazon.device.ads.AdActivity" />
+        <activity
+            android:name="com.my.target.ads.MyTargetActivity"
+            android:hardwareAccelerated="true" />
+
+        <!-- suppress AndroidDomInspection -->
+        <activity android:name="com.facebook.ads.AudienceNetworkActivity" />
+
+        <!-- suppress AndroidDomInspection -->
+        <activity
+            android:name="com.startapp.android.publish.ads.list3d.List3DActivity"
+            android:theme="@android:style/Theme" />
+        <!-- suppress AndroidDomInspection -->
+        <activity
+            android:name="com.startapp.android.publish.adsCommon.activities.OverlayActivity"
+            android:theme="@android:style/Theme.Translucent" />
+        <!-- suppress AndroidDomInspection -->
+        <activity
+            android:name="com.startapp.android.publish.adsCommon.activities.FullScreenActivity"
+            android:theme="@android:style/Theme" />
+        <!-- suppress AndroidDomInspection -->
+        <service android:name="com.startapp.android.publish.common.metaData.PeriodicMetaDataService" />
+        <!-- suppress AndroidDomInspection -->
+        <service android:name="com.startapp.android.publish.common.metaData.InfoEventService" />
+        <service
+            android:name="com.yandex.metrica.MetricaService"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":Metrica">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <action android:name="com.yandex.metrica.IMetricaService" />
+
+                <data android:scheme="metrica" />
+            </intent-filter>
+
+            <meta-data
+                android:name="metrica:api:level"
+                android:value="58" />
+        </service>
+
+        <receiver
+            android:name="com.yandex.metrica.MetricaEventHandler"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
+
+        <!-- suppress AndroidDomInspection -->
+        <activity android:name="com.yandex.mobile.ads.AdActivity" />
+        <activity
+            android:name="com.unity3d.ads.adunit.AdUnitActivity"
+            android:hardwareAccelerated="true"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity
+            android:name="com.unity3d.ads.adunit.AdUnitSoftwareActivity"
+            android:hardwareAccelerated="false"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity
+            android:name="com.unity3d.ads2.adunit.AdUnitActivity"
+            android:hardwareAccelerated="true"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity
+            android:name="com.unity3d.ads2.adunit.AdUnitSoftwareActivity"
+            android:hardwareAccelerated="false"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+
+        <!-- suppress AndroidDomInspection -->
+        <activity
+            android:name="com.jirbo.adcolony.AdColonyOverlay"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+        <!-- suppress AndroidDomInspection -->
+        <activity
+            android:name="com.jirbo.adcolony.AdColonyFullscreen"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+        <!-- suppress AndroidDomInspection -->
+        <activity
+            android:name="com.jirbo.adcolony.AdColonyBrowser"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+
+        <!-- suppress AndroidDomInspection -->
+        <activity
+            android:name="com.vungle.publisher.VideoFullScreenAdActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <!-- suppress AndroidDomInspection -->
+        <activity
+            android:name="com.vungle.publisher.MraidFullScreenAdActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+        <!-- suppress AndroidDomInspection -->
+        <activity
+            android:name="com.vungle.publisher.FlexViewAdActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+
+        <!-- suppress AndroidDomInspection -->
+        <activity
+            android:name="com.flurry.android.FlurryFullscreenTakeoverActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- suppress AndroidDomInspection -->
+        <activity
+            android:name="com.flurry.android.FlurryShareActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- suppress AndroidDomInspection -->
+        <activity
+            android:name="com.flurry.android.FlurryTileAdActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- suppress AndroidDomInspection -->
+        <activity
+            android:name="com.flurry.android.FlurryBrowserActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <!-- suppress AndroidDomInspection -->
+        <activity
+            android:name="com.tapjoy.TJAdUnitActivity"
+            android:hardwareAccelerated="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+        <!-- suppress AndroidDomInspection -->
+        <activity android:name="com.tapjoy.mraid.view.ActionHandler" />
+        <!-- suppress AndroidDomInspection -->
+        <activity android:name="com.tapjoy.mraid.view.Browser" />
+        <!-- suppress AndroidDomInspection -->
+        <activity
+            android:name="com.tapjoy.TJContentActivity"
+            android:hardwareAccelerated="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <!-- suppress AndroidDomInspection -->
+        <activity
+            android:name="com.ironsource.sdk.controller.ControllerActivity"
+            android:hardwareAccelerated="true" />
+        <!-- suppress AndroidDomInspection -->
+        <activity
+            android:name="com.ironsource.sdk.controller.InterstitialActivity"
+            android:hardwareAccelerated="true"
+            android:theme="@android:style/Theme.Translucent" />
+        <!-- suppress AndroidDomInspection -->
+        <activity
+            android:name="com.ironsource.sdk.controller.OpenUrlActivity"
+            android:hardwareAccelerated="true"
+            android:theme="@android:style/Theme.Translucent" />
+
+        <!-- suppress AndroidDomInspection -->
+        <activity
+            android:name="com.adcolony.sdk.AdColonyInterstitialActivity"
+            android:hardwareAccelerated="true" />
+        <!-- suppress AndroidDomInspection -->
+        <activity
+            android:name="com.adcolony.sdk.AdColonyAdViewActivity"
+            android:hardwareAccelerated="true" />
+        <activity
+            android:name="com.inmobi.rendering.InMobiAdActivity"
+            android:hardwareAccelerated="true"
+            android:resizeableActivity="false"
+            android:theme="@android:style/Theme.NoTitleBar" />
+
+        <receiver
+            android:name="com.inmobi.commons.core.utilities.uid.ImIdShareBroadCastReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.inmobi.share.id" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".ui.list.ListActivity"></activity>
+    </application>
+
+</manifest>

@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">InfoApp</string>
+    <string name="ads_key">41eed5f8eccdf45c7a7486323f5dc0f60579436ec5d1d74c</string>
+
+    <string name="base_url">https://null/</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="activity_main_title">Заголовок</string>
+    <string name="main_nav_header_title">Еще заголовок</string>
+</resources>
