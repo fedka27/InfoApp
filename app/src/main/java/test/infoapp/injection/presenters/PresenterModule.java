@@ -35,8 +35,9 @@ public class PresenterModule {
     }
 
     @Provides
-    MainContract.Presenter provideMainPresenter(ConfigRepository configRepository) {
-        return new MainPresenter(configRepository);
+    MainContract.Presenter provideMainPresenter(ConfigRepository configRepository,
+                                                AdsManager adsManager) {
+        return new MainPresenter(configRepository, adsManager);
     }
 
     @Provides

@@ -2,8 +2,6 @@ package test.infoapp.ui.splash;
 
 import android.os.Bundle;
 
-import com.appodeal.ads.Appodeal;
-
 import javax.inject.Inject;
 
 import test.infoapp.R;
@@ -19,19 +17,12 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-
-        initAds();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         presenter.onStart();
-    }
-
-    private void initAds() {
-        String appKey = getString(R.string.ads_key);
-        Appodeal.initialize(this, appKey, Appodeal.INTERSTITIAL & Appodeal.NON_SKIPPABLE_VIDEO);
     }
 
     @Override
@@ -48,16 +39,6 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
     @Override
     public void openListActivity() {
         ListActivity.start(this);
-    }
-
-    @Override
-    public void showAdsInterstitial() {
-        Appodeal.show(this, Appodeal.INTERSTITIAL);
-    }
-
-    @Override
-    public void showAdsVideo() {
-        Appodeal.show(this, Appodeal.NON_SKIPPABLE_VIDEO);
     }
 
     @Override

@@ -55,9 +55,11 @@ public class ListActivity extends BaseActivity implements ListContract.View {
 
         swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
         swipeRefreshLayout.setOnRefreshListener(presenter);
+    }
 
-        String appKey = getString(R.string.ads_key);
-        Appodeal.initialize(this, appKey, Appodeal.INTERSTITIAL | Appodeal.NON_SKIPPABLE_VIDEO | Appodeal.BANNER);
+    @Override
+    protected void onStart() {
+        super.onStart();
         presenter.onStart();
     }
 
@@ -72,16 +74,6 @@ public class ListActivity extends BaseActivity implements ListContract.View {
     @Override
     public void setList(List<ListItem> listItems) {
         listAdapter.setItems(listItems);
-    }
-
-    @Override
-    public void showAdsVideo() {
-        Appodeal.show(this, Appodeal.NON_SKIPPABLE_VIDEO);
-    }
-
-    @Override
-    public void showAdsFullScreen() {
-        Appodeal.show(this, Appodeal.INTERSTITIAL);
     }
 
     @Override

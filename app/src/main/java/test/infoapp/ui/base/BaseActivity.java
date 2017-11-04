@@ -1,6 +1,5 @@
 package test.infoapp.ui.base;
 
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
@@ -13,19 +12,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.appodeal.ads.Appodeal;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import test.infoapp.R;
+import test.infoapp.ui.AdsView;
 import test.infoapp.ui.base.interfaces.IKeyboardManageListener;
 import test.infoapp.ui.base.interfaces.IProgressListener;
 import test.infoapp.ui.base.interfaces.IThrowableListener;
-import test.infoapp.util.AndroidUtils;
 import test.infoapp.util.KeyboardUtil;
 import test.infoapp.util.NotificationUtil;
 
 public abstract class BaseActivity extends AppCompatActivity implements IProgressListener,
         IThrowableListener,
-        IKeyboardManageListener {
+        IKeyboardManageListener,
+        AdsView {
 
     protected NotificationUtil notificationUtil;
     @Nullable @BindView(R.id.progress_bar) ProgressBar progressBar;
@@ -61,17 +63,10 @@ public abstract class BaseActivity extends AppCompatActivity implements IProgres
     private void init(View view) {
         ButterKnife.bind(this);
         notificationUtil = new NotificationUtil(this, view);
-//        initScreenOrientation();
+
+        String adsKey = getString(R.string.ads_key);
+        Appodeal.initialize(this, adsKey, Appodeal.INTERSTITIAL | Appodeal.REWARDED_VIDEO | Appodeal.BANNER);
     }
-
-    private void initScreenOrientation() {
-        if (!AndroidUtils.isTablet(this)) {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        }
-    }
-
-
-    protected abstract void initPresenter();
 
     public void showRootFragment(@IdRes int container, Fragment fragment) {
         while (getSupportFragmentManager().getBackStackEntryCount() != 0) {
@@ -125,4 +120,16 @@ public abstract class BaseActivity extends AppCompatActivity implements IProgres
             KeyboardUtil.hideKeyboard(this, notificationUtil.getView());
         }
     }
+
+    @Override
+    public void showAdsVideo() {
+        Appodeal.show(this, Appodeal.NON_SKIPPABLE_VIDEO);
+    }
+
+    @Override
+    public void showAdsInterstitial() {
+        Appodeal.show(this, Appodeal.INTERSTITIAL);
+    }
+
+    protected abstract void initPresenter();
 }

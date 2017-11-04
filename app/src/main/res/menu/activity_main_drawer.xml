@@ -4,24 +4,19 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
+
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Category 1" />
+            android:id="@+id/nav_cat_1"
+            android:title="@string/category_1" />
+
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Category 2" />
+            android:id="@+id/nav_cat_2"
+            android:title="@string/category_2" />
+
+        <item
+            android:id="@+id/nav_cat_3"
+            android:title="@string/category_3" />
 
     </group>
-
-    <item android:title="Other">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-        </menu>
-    </item>
 
 </menu>

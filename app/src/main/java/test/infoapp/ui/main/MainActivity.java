@@ -11,7 +11,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.appodeal.ads.Appodeal;
 
@@ -32,7 +33,10 @@ public class MainActivity extends BaseActivity
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
     @BindView(R.id.nav_view) NavigationView navigationView;
-    @BindView(R.id.container_main) ViewGroup containerViewGroup;
+
+    @BindView(R.id.content_text_view) TextView textView;
+    @BindView(R.id.image_view) ImageView imageView;
+
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
     public static void start(Activity activity) {
@@ -65,7 +69,8 @@ public class MainActivity extends BaseActivity
 
         navigationView.setNavigationItemSelectedListener(this);
 
-        initAds();
+
+        onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_cat_1));
 
     }
 
@@ -81,20 +86,10 @@ public class MainActivity extends BaseActivity
         actionBarDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-    private void initAds() {
-        String appKey = getString(R.string.ads_key);
-
-        Appodeal.initialize(this, appKey, Appodeal.INTERSTITIAL | Appodeal.REWARDED_VIDEO | Appodeal.BANNER);
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        // Handle other action bar items...
+        return actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
 
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -126,6 +121,19 @@ public class MainActivity extends BaseActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+
+        if (id == R.id.nav_cat_1) {
+            textView.setText(R.string.text_1);
+            imageView.setImageResource(R.drawable.image_1);
+        } else if (id == R.id.nav_cat_2) {
+            textView.setText(R.string.text_2);
+            imageView.setImageResource(R.drawable.image_2);
+        } else if (id == R.id.nav_cat_3) {
+            textView.setText(R.string.text_3);
+            imageView.setImageResource(R.drawable.image_1);
+        }
+
+        presenter.onCategoryPressed();
 
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;

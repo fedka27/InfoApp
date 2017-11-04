@@ -1,8 +1,11 @@
 package test.infoapp.injection.model.managers;
 
+import com.appodeal.ads.Appodeal;
+
 import java.util.Random;
 
 import test.infoapp.injection.model.data.dto.Config;
+import test.infoapp.ui.AdsView;
 import test.infoapp.util.L;
 
 public class AdsManager {
@@ -41,5 +44,23 @@ public class AdsManager {
 
     public boolean isVideoTypeAds(Config config) {
         return isVideoTypeAds(config.getAds_video(), config.getAds_interstetial());
+    }
+
+    public boolean isVideoLoaded() {
+        return Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO);
+    }
+
+    public boolean isInterstitialLoaded() {
+        return Appodeal.isLoaded(Appodeal.INTERSTITIAL);
+    }
+
+    public void showAdsOfType(Config config, AdsView view) {
+        if (isVideoTypeAds(config)) {
+            if (isVideoLoaded()) view.showAdsVideo();
+            else if (isInterstitialLoaded()) view.showAdsInterstitial();
+        } else {
+            if (isInterstitialLoaded()) view.showAdsInterstitial();
+            else if (isVideoLoaded()) view.showAdsVideo();
+        }
     }
 }

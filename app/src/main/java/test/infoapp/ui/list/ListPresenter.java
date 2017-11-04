@@ -1,7 +1,5 @@
 package test.infoapp.ui.list;
 
-import com.appodeal.ads.Appodeal;
-
 import io.reactivex.disposables.CompositeDisposable;
 import test.infoapp.injection.model.data.dto.ListItem;
 import test.infoapp.injection.model.interactors.ViewInteractor;
@@ -61,13 +59,7 @@ public class ListPresenter implements ListContract.Presenter {
         boolean isShowAds = adsManager.clickToLinkAndIsShowAds();
         L.d(TAG, "isShowAds - " + isShowAds);
         if (isShowAds) {
-            if (adsManager.isVideoTypeAds(configRepository.getConfigSaved())) {
-                if (Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO)) view.showAdsVideo();
-                else if (Appodeal.isLoaded(Appodeal.INTERSTITIAL)) view.showAdsFullScreen();
-            } else {
-                if (Appodeal.isLoaded(Appodeal.INTERSTITIAL)) view.showAdsFullScreen();
-                else if (Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO)) view.showAdsVideo();
-            }
+            adsManager.showAdsOfType(configRepository.getConfigSaved(), view);
         }
     }
 
