@@ -7,6 +7,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import test.infoapp.injection.model.interactors.ViewInteractor;
 import test.infoapp.injection.model.managers.AdsManager;
 import test.infoapp.injection.model.repositories.ConfigRepository;
+import test.infoapp.injection.model.repositories.ContentRepository;
 import test.infoapp.ui.list.ListContract;
 import test.infoapp.ui.list.ListPresenter;
 import test.infoapp.ui.main.MainContract;
@@ -40,11 +41,13 @@ public class PresenterModule {
 
     @Provides
     ListContract.Presenter provideListPresenter(ConfigRepository configRepository,
+                                                ContentRepository contentRepository,
                                                 AdsManager adsClickManager,
                                                 RxSchedulersAbs rxSchedulersAbs,
                                                 ViewInteractor viewInteractor,
                                                 CompositeDisposable compositeDisposable) {
         return new ListPresenter(configRepository,
+                contentRepository,
                 adsClickManager,
                 rxSchedulersAbs,
                 viewInteractor,

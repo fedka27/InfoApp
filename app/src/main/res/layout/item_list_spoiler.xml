@@ -1,25 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container_spoiler"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="@dimen/container_padding">
 
     <Button
         android:id="@+id/spoiler_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:background="@android:color/white"
+        android:drawableLeft="@drawable/ic_spoiler"
+        android:drawablePadding="@dimen/drawable_padding"
+        android:drawableStart="@drawable/ic_spoiler"
+        android:foreground="@drawable/selector_pressed"
         android:gravity="center"
         android:padding="@dimen/text_margin_small"
         android:textColor="@color/black"
-        tools:text="Lint Text" />
+        tools:text="Link Text" />
 
     <TextView
         android:id="@+id/text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/text_margin_small"
         android:gravity="center"
+        android:textColor="@android:color/white"
         android:visibility="gone"
         tools:text="gbcbgdfgdfgdf\nfsdfsd"
         tools:visibility="visible" />

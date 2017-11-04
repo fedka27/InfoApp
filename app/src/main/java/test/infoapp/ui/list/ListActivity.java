@@ -3,6 +3,7 @@ package test.infoapp.ui.list;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
@@ -15,6 +16,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import test.infoapp.R;
 import test.infoapp.injection.ComponentProvider;
+import test.infoapp.injection.model.data.dto.Config;
 import test.infoapp.injection.model.data.dto.ListItem;
 import test.infoapp.ui.base.BaseActivity;
 
@@ -23,6 +25,7 @@ public class ListActivity extends BaseActivity implements ListContract.View {
     @Inject ListContract.Presenter presenter;
 
     @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.swipe_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.recycler_view) RecyclerView recyclerView;
 
     private ListAdapter listAdapter;
@@ -45,14 +48,25 @@ public class ListActivity extends BaseActivity implements ListContract.View {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
 
         listAdapter = new ListAdapter(presenter);
-
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(listAdapter);
+
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
+        swipeRefreshLayout.setOnRefreshListener(presenter);
+
         String appKey = getString(R.string.ads_key);
-        Appodeal.initialize(this, appKey, Appodeal.INTERSTITIAL & Appodeal.NON_SKIPPABLE_VIDEO);
+        Appodeal.initialize(this, appKey, Appodeal.INTERSTITIAL | Appodeal.NON_SKIPPABLE_VIDEO | Appodeal.BANNER);
         presenter.onStart();
+    }
+
+    @Override
+    public void configureAds(Config config) {
+        if (config.isAds_banner()) {
+            Appodeal.setBannerViewId(R.id.banner_view);
+            Appodeal.show(this, Appodeal.BANNER);
+        }
     }
 
     @Override
@@ -68,6 +82,12 @@ public class ListActivity extends BaseActivity implements ListContract.View {
     @Override
     public void showAdsFullScreen() {
         Appodeal.show(this, Appodeal.INTERSTITIAL);
+    }
+
+    @Override
+    public void hideProgress() {
+        super.hideProgress();
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override

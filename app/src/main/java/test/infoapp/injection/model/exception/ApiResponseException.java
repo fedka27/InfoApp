@@ -7,7 +7,7 @@ public class ApiResponseException extends RuntimeException {
     }
 
     public ApiResponseException(Throwable throwable) {
-        super(throwable);
+        super("Ошибка разбора данных", throwable);
     }
 
     public ApiResponseException(String detailMessage, Throwable throwable) {

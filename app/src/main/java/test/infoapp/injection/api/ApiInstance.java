@@ -48,7 +48,7 @@ public class ApiInstance {
 
     public static OkHttpClient getClient(Context context) {
         return new OkHttpClient.Builder()
-                .cache(getCache(context))
+//                .cache(getCache(context))
                 .addInterceptor(getLoggingInterceptor())
                 .addNetworkInterceptor(getLoggingInterceptor())
                 .retryOnConnectionFailure(true)
@@ -59,7 +59,9 @@ public class ApiInstance {
     }
 
     private static Interceptor getLoggingInterceptor() {
-        return new HttpLoggingInterceptor();
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        return httpLoggingInterceptor;
     }
 
 }

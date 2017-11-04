@@ -2,6 +2,7 @@ package test.infoapp.ui.list;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.support.transition.TransitionManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -16,9 +17,6 @@ import test.infoapp.ui.base.BaseRecyclerAdapter;
 import test.infoapp.ui.base.BaseRecyclerViewHolder;
 import test.infoapp.ui.base.RecyclerRow;
 
-import static test.infoapp.injection.model.data.dto.ListItemType.LINK;
-import static test.infoapp.injection.model.data.dto.ListItemType.TEXT;
-
 
 public class ListAdapter extends BaseRecyclerAdapter {
 
@@ -30,7 +28,7 @@ public class ListAdapter extends BaseRecyclerAdapter {
 
             @Override
             public boolean is(Object item) {
-                return item instanceof ListItem && ((ListItem) item).getType().equals(LINK);
+                return item instanceof ListItem && ((ListItem) item).isLink();
             }
 
             @Override
@@ -47,14 +45,14 @@ public class ListAdapter extends BaseRecyclerAdapter {
             public void bind(BaseRecyclerViewHolder holder, Object item) {
                 ViewLinkHolder viewTextHolder = (ViewLinkHolder) holder;
 
-                viewTextHolder.bind((ListItem) item);
+                viewTextHolder.bind(((ListItem) item).getLink());
             }
         });
         recyclerRow.addRow(new RecyclerRow.Row() {
 
             @Override
             public boolean is(Object item) {
-                return item instanceof ListItem && ((ListItem) item).getType().equals(TEXT);
+                return item instanceof ListItem && ((ListItem) item).isSpoiler();
             }
 
             @Override
@@ -71,7 +69,7 @@ public class ListAdapter extends BaseRecyclerAdapter {
             public void bind(BaseRecyclerViewHolder holder, Object item) {
                 ViewSpoilerHolder spoilerHolder = (ViewSpoilerHolder) holder;
 
-                spoilerHolder.bind((ListItem) item);
+                spoilerHolder.bind(((ListItem) item).getSpoiler());
             }
         });
 
@@ -92,9 +90,11 @@ public class ListAdapter extends BaseRecyclerAdapter {
             super(viewGroup, R.layout.item_list_link);
         }
 
-        void bind(ListItem listItem) {
+        void bind(ListItem.Link link) {
+            linkButton.setText(link.getText());
+
             linkButton.setOnClickListener(v -> {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(listItem.getLink()));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link.getLink()));
                 getView().getContext().startActivity(browserIntent);
             });
         }
@@ -102,6 +102,7 @@ public class ListAdapter extends BaseRecyclerAdapter {
 
     class ViewSpoilerHolder extends BaseRecyclerViewHolder {
 
+        @BindView(R.id.container_spoiler) ViewGroup viewGroup;
         @BindView(R.id.spoiler_button) Button spoilerButton;
         @BindView(R.id.text_view) TextView textView;
 
@@ -109,10 +110,15 @@ public class ListAdapter extends BaseRecyclerAdapter {
             super(viewGroup, R.layout.item_list_spoiler);
         }
 
-        void bind(ListItem listItem) {
-            spoilerButton.setOnClickListener(v -> {
-                adapterPresenter.onClick(listItem);
+        void bind(ListItem.Spoiler spoiler) {
+            spoilerButton.setText(spoiler.getButtonText());
 
+            spoilerButton.setOnClickListener(v -> {
+                textView.setText(spoiler.getSpoilerText());
+
+                adapterPresenter.onClick(spoiler);
+
+                TransitionManager.beginDelayedTransition(viewGroup);
                 textView.setVisibility(textView.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
             });
         }

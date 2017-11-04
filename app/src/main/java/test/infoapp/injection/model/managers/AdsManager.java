@@ -14,7 +14,7 @@ public class AdsManager {
         this.clickCountToAds = clickCountToAds;
     }
 
-    public boolean isClickToAds() {
+    public boolean clickToLinkAndIsShowAds() {
         clickCount++;
 
         if (clickCount >= clickCountToAds) {

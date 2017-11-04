@@ -21,6 +21,11 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
         setContentView(R.layout.activity_splash);
 
         initAds();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         presenter.onStart();
     }
 

@@ -9,4 +9,6 @@
     <color name="bg_dialog">#28454545</color>
 
     <color name="black">#000000</color>
+    <color name="color_pressed">#453b3b3b</color>
+    <color name="bg_list">#000000</color>
 </resources>
