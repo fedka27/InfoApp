@@ -11,4 +11,5 @@
 
     <string name="activity_main_title">Заголовок</string>
     <string name="main_nav_header_title">Еще заголовок</string>
+    <string name="dialog_processing">Processing</string>
 </resources>

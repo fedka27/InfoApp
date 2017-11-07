@@ -1,7 +1,5 @@
 package test.infoapp.ui.list;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.support.transition.TransitionManager;
 import android.view.View;
 import android.view.ViewGroup;
@@ -94,8 +92,9 @@ public class ListAdapter extends BaseRecyclerAdapter {
             linkButton.setText(link.getText());
 
             linkButton.setOnClickListener(v -> {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link.getLink()));
-                getView().getContext().startActivity(browserIntent);
+//                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link.getLink()));
+//                getView().getContext().startActivity(browserIntent);
+                adapterPresenter.onLinkPressed(link.getLink());
             });
         }
     }

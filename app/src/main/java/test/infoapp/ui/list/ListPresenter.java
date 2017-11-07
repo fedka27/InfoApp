@@ -64,6 +64,11 @@ public class ListPresenter implements ListContract.Presenter {
     }
 
     @Override
+    public void onLinkPressed(String link) {
+        view.showProgressWebDialog(link);
+    }
+
+    @Override
     public void onRefresh() {
         loadData();
     }

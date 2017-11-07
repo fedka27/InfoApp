@@ -19,6 +19,8 @@ public interface ListContract {
         void configureAds(Config config);
 
         void setList(List<ListItem> listItems);
+
+        void showProgressWebDialog(String link);
     }
 
     interface Presenter extends BaseScreen.Presenter<View>, AdapterPresenter, SwipeRefreshLayout.OnRefreshListener {
@@ -26,5 +28,7 @@ public interface ListContract {
 
     interface AdapterPresenter extends BaseScreen.AdapterPresenter {
         void onClick(ListItem.Spoiler spoiler);
+
+        void onLinkPressed(String link);
     }
 }

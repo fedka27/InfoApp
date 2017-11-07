@@ -10,4 +10,5 @@
     <dimen name="text_margin_small">12dp</dimen>
     <dimen name="drawable_padding">12dp</dimen>
     <dimen name="container_padding">12dp</dimen>
+    <dimen name="dialog_corners">12dp</dimen>
 </resources>

@@ -18,6 +18,7 @@ import test.infoapp.R;
 import test.infoapp.injection.ComponentProvider;
 import test.infoapp.injection.model.data.dto.Config;
 import test.infoapp.injection.model.data.dto.ListItem;
+import test.infoapp.ui.ProgressWebDialog;
 import test.infoapp.ui.base.BaseActivity;
 
 public class ListActivity extends BaseActivity implements ListContract.View {
@@ -80,6 +81,11 @@ public class ListActivity extends BaseActivity implements ListContract.View {
     public void hideProgress() {
         super.hideProgress();
         swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void showProgressWebDialog(String link) {
+        new ProgressWebDialog(this, link).show();
     }
 
     @Override
