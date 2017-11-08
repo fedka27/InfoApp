@@ -1,5 +1,6 @@
 package test.infoapp.ui.list;
 
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 
 import java.util.List;
@@ -17,6 +18,8 @@ public interface ListContract {
             IThrowableListener,
             AdsView {
         void configureAds(Config config);
+
+        void loadBgOrParseColor(String bgImage, @Nullable String bgColor);
 
         void setList(List<ListItem> listItems);
 

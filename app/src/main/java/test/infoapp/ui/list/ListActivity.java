@@ -2,18 +2,28 @@ package test.infoapp.ui.list;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.ViewGroup;
 
 import com.appodeal.ads.Appodeal;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import jp.wasabeef.glide.transformations.ColorFilterTransformation;
 import test.infoapp.R;
 import test.infoapp.injection.ComponentProvider;
 import test.infoapp.injection.model.data.dto.Config;
@@ -25,6 +35,7 @@ public class ListActivity extends BaseActivity implements ListContract.View {
 
     @Inject ListContract.Presenter presenter;
 
+    @BindView(R.id.container) ViewGroup container;
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.swipe_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.recycler_view) RecyclerView recyclerView;
@@ -48,8 +59,6 @@ public class ListActivity extends BaseActivity implements ListContract.View {
         setContentView(R.layout.activity_list);
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
 
         listAdapter = new ListAdapter(presenter);
         recyclerView.setAdapter(listAdapter);
@@ -73,6 +82,26 @@ public class ListActivity extends BaseActivity implements ListContract.View {
     }
 
     @Override
+    public void loadBgOrParseColor(String bgImage, @Nullable String bgColor) {
+        if (bgImage != null) {
+            Glide.with(this)
+                    .load(bgImage)
+                    .bitmapTransform(new ColorFilterTransformation(this, R.color.black))
+                    .placeholder(new ColorDrawable(Color.parseColor(bgColor)))
+                    .into(new SimpleTarget<GlideDrawable>() {
+                        @Override
+                        public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+                            container.setBackground(resource);
+                        }
+                    });
+        } else {
+            Drawable drawable = new ColorDrawable(Color.parseColor(bgColor));
+            container.setBackground(drawable);
+//            getWindow().setBackgroundDrawable(drawable);
+        }
+    }
+
+    @Override
     public void setList(List<ListItem> listItems) {
         listAdapter.setItems(listItems);
     }
@@ -86,12 +115,6 @@ public class ListActivity extends BaseActivity implements ListContract.View {
     @Override
     public void showProgressWebDialog(String link) {
         new ProgressWebDialog(this, link).show();
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return super.onSupportNavigateUp();
     }
 
     @Override

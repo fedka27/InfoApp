@@ -1,10 +1,8 @@
 package test.infoapp.injection.model.repositories;
 
-import java.util.List;
-
 import io.reactivex.Single;
 import test.infoapp.injection.model.data.api.Api;
-import test.infoapp.injection.model.data.dto.ListItem;
+import test.infoapp.injection.model.data.dto.ContentResponse;
 import test.infoapp.injection.model.data.mapper.ApiResponseMapper;
 
 public class ContentRepository extends BaseRepository {
@@ -17,7 +15,7 @@ public class ContentRepository extends BaseRepository {
         this.configRepository = configRepository;
     }
 
-    public Single<List<ListItem>> items() {
+    public Single<ContentResponse> content() {
         return api.getContent(configRepository.getConfigSaved().getContent_url())
                 .map(apiResponseMapper::map);
     }

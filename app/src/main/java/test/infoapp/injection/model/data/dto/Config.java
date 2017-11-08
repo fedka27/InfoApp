@@ -68,4 +68,8 @@ public class Config implements Serializable {
     public int getAds_click_interval() {
         return ads_click_interval;
     }
+
+    public String getListBgColor() {
+        return "#FFFFFF";
+    }
 }

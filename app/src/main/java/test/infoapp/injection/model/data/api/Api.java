@@ -1,15 +1,13 @@
 package test.infoapp.injection.model.data.api;
 
 
-import java.util.List;
-
 import io.reactivex.Single;
 import retrofit2.adapter.rxjava2.Result;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import test.infoapp.injection.api.converter_factory.Json;
 import test.infoapp.injection.model.data.dto.Config;
-import test.infoapp.injection.model.data.dto.ListItem;
+import test.infoapp.injection.model.data.dto.ContentResponse;
 
 public interface Api {
     @GET("fedka27/InfoApp-api/master/config.json")
@@ -18,7 +16,7 @@ public interface Api {
 
     @GET("{path}")
     @Json
-    Single<Result<List<ListItem>>> getContent(@Path("path") String content);
+    Single<Result<ContentResponse>> getContent(@Path("path") String content);
 
 }
 

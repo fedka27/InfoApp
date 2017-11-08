@@ -46,10 +46,13 @@ public class ListPresenter implements ListContract.Presenter {
     }
 
     private void loadData() {
-        compositeDisposable.add(contentRepository.items()
+        compositeDisposable.add(contentRepository.content()
                 .compose(rxSchedulersAbs.getIOToMainTransformerSingle())
                 .compose(viewInteractor.manageProgressSingle(view))
-                .subscribe(listItems -> view.setList(listItems),
+                .subscribe(content -> {
+                            view.loadBgOrParseColor(content.getImageBg(), content.getImageColor());
+                            view.setList(content.getList());
+                        },
                         throwable -> viewInteractor.manageError(view, throwable)));
 
     }
