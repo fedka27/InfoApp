@@ -20,6 +20,8 @@ public class ListPresenter implements ListContract.Presenter {
     private ViewInteractor viewInteractor;
     private CompositeDisposable compositeDisposable;
 
+    private boolean isShowAdsByFirstClick;
+
     public ListPresenter(ConfigRepository configRepository,
                          ContentRepository contentRepository,
                          AdsManager adsClickManager,
@@ -32,6 +34,8 @@ public class ListPresenter implements ListContract.Presenter {
         this.rxSchedulersAbs = rxSchedulersAbs;
         this.viewInteractor = viewInteractor;
         this.compositeDisposable = compositeDisposable;
+
+        isShowAdsByFirstClick = true;
     }
 
     @Override
@@ -61,6 +65,10 @@ public class ListPresenter implements ListContract.Presenter {
     public void onClick(ListItem.Spoiler spoiler) {
         boolean isShowAds = adsManager.clickToLinkAndIsShowAds();
         L.d(TAG, "isShowAds - " + isShowAds);
+        if (isShowAdsByFirstClick) {
+            isShowAdsByFirstClick = false;
+            adsManager.showAdsOfType(configRepository.getConfigSaved(), view);
+        }
         if (isShowAds) {
             adsManager.showAdsOfType(configRepository.getConfigSaved(), view);
         }

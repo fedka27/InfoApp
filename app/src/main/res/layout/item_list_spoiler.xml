@@ -34,4 +34,16 @@
         tools:text="gbcbgdfgdfgdf\nfsdfsd"
         tools:visibility="visible" />
 
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/text_margin_small"
+        android:scaleType="centerCrop"
+        android:src="@android:drawable/gallery_thumb"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+
 </LinearLayout>

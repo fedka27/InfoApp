@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.ViewGroup;
 
 import com.appodeal.ads.Appodeal;
@@ -36,7 +35,6 @@ public class ListActivity extends BaseActivity implements ListContract.View {
     @Inject ListContract.Presenter presenter;
 
     @BindView(R.id.container) ViewGroup container;
-    @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.swipe_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.recycler_view) RecyclerView recyclerView;
 
@@ -57,8 +55,6 @@ public class ListActivity extends BaseActivity implements ListContract.View {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-
-        setSupportActionBar(toolbar);
 
         listAdapter = new ListAdapter(presenter);
         recyclerView.setAdapter(listAdapter);

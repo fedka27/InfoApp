@@ -9,16 +9,6 @@
     android:orientation="vertical"
     tools:context="test.infoapp.ui.list.ListActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_gravity="top"
-        android:background="@android:color/transparent">
-
-        <include layout="@layout/toolbar" />
-
-    </android.support.design.widget.AppBarLayout>
-
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
@@ -31,7 +21,6 @@
             android:layout_alignParentTop="true"
             android:clipToPadding="false"
             android:paddingBottom="40dp"
-            android:paddingTop="?attr/actionBarSize"
             app:layoutManager="LinearLayoutManager" />
 
     </android.support.v4.widget.SwipeRefreshLayout>

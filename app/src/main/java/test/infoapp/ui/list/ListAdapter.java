@@ -4,7 +4,10 @@ import android.support.transition.TransitionManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -22,6 +25,30 @@ public class ListAdapter extends BaseRecyclerAdapter {
 
     public ListAdapter(ListContract.AdapterPresenter adapterPresenter) {
         this.adapterPresenter = adapterPresenter;
+
+        addToolbarHolder();
+
+        recyclerRow.addRow(new RecyclerRow.Row() {
+            @Override
+            public boolean is(Object item) {
+                return item == null;
+            }
+
+            @Override
+            public int typeLayout() {
+                return -1;
+            }
+
+            @Override
+            public BaseRecyclerViewHolder viewHolder(ViewGroup parent) {
+                return new ToolbarHolder(parent);
+            }
+
+            @Override
+            public void bind(BaseRecyclerViewHolder holder, Object item) {
+
+            }
+        });
         recyclerRow.addRow(new RecyclerRow.Row() {
 
             @Override
@@ -70,12 +97,15 @@ public class ListAdapter extends BaseRecyclerAdapter {
                 spoilerHolder.bind(((ListItem) item).getSpoiler());
             }
         });
+    }
 
-
+    private void addToolbarHolder() {
+        itemList.add(null);
     }
 
     public void setItems(List<ListItem> items) {
         clearList();
+        addToolbarHolder();
         itemList.addAll(items);
         notifyDataSetChanged();
     }
@@ -104,6 +134,7 @@ public class ListAdapter extends BaseRecyclerAdapter {
         @BindView(R.id.container_spoiler) ViewGroup viewGroup;
         @BindView(R.id.spoiler_button) Button spoilerButton;
         @BindView(R.id.text_view) TextView textView;
+        @BindView(R.id.image_view) ImageView imageView;
 
         public ViewSpoilerHolder(ViewGroup viewGroup) {
             super(viewGroup, R.layout.item_list_spoiler);
@@ -115,11 +146,22 @@ public class ListAdapter extends BaseRecyclerAdapter {
             spoilerButton.setOnClickListener(v -> {
                 textView.setText(spoiler.getSpoilerText());
 
+                Glide.with(getView().getContext())
+                        .load(spoiler.getImage())
+                        .into(imageView);
+
                 adapterPresenter.onClick(spoiler);
 
                 TransitionManager.beginDelayedTransition(viewGroup);
                 textView.setVisibility(textView.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
+                imageView.setVisibility(imageView.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
             });
+        }
+    }
+
+    private class ToolbarHolder extends BaseRecyclerViewHolder {
+        public ToolbarHolder(ViewGroup parent) {
+            super(parent, R.layout.toolbar);
         }
     }
 }
