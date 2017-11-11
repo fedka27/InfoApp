@@ -75,6 +75,12 @@ public class ProgressWebDialog extends BaseDialog {
         getContext().startActivity(new Intent(Intent.ACTION_VIEW, uri));
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (webview != null) webview.stopLoading();
+    }
+
     private class WebViewClient extends android.webkit.WebViewClient {
 
 //        @Override
