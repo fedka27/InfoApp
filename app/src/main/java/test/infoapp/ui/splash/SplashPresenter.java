@@ -8,6 +8,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import test.infoapp.injection.model.data.dto.Config;
 import test.infoapp.injection.model.managers.AdsManager;
 import test.infoapp.injection.model.repositories.ConfigRepository;
+import test.infoapp.injection.model.repositories.StylesRepository;
 import test.infoapp.util.connection.ConnectionUtilAbs;
 import test.infoapp.util.rx.RxSchedulersAbs;
 
@@ -16,17 +17,20 @@ public class SplashPresenter implements SplashContract.Presenter {
     private SplashContract.View view;
 
     private ConfigRepository configRepository;
+    private StylesRepository stylesRepository;
     private RxSchedulersAbs rxSchedulersAbs;
     private AdsManager adsManager;
     private ConnectionUtilAbs connectionUtilAbs;
     private CompositeDisposable compositeDisposable;
 
     public SplashPresenter(ConfigRepository configRepository,
+                           StylesRepository stylesRepository,
                            RxSchedulersAbs rxSchedulersAbs,
                            AdsManager adsManager,
                            ConnectionUtilAbs connectionUtilAbs,
                            CompositeDisposable compositeDisposable) {
         this.configRepository = configRepository;
+        this.stylesRepository = stylesRepository;
         this.rxSchedulersAbs = rxSchedulersAbs;
         this.adsManager = adsManager;
         this.connectionUtilAbs = connectionUtilAbs;
@@ -45,9 +49,9 @@ public class SplashPresenter implements SplashContract.Presenter {
             return;
         }
 
-        compositeDisposable.add(configRepository.getConfig()
+        compositeDisposable.add(stylesRepository.getStylesResponseSingle()
+                .flatMap(stylesResponse -> configRepository.getConfig())
                 .compose(rxSchedulersAbs.getComputationToMainTransformerSingle())
-                .onErrorReturn(throwable -> new Config())
                 .subscribe(this::showAdsOrOpenNextScreen));
     }
 

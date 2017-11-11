@@ -1,12 +1,12 @@
 package test.infoapp.injection.model.data.dto;
 
-import android.support.annotation.Nullable;
+import android.graphics.Color;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class ContentResponse {
+public class ContentResponse extends ColorHelper {
     @SerializedName("list") List<ListItem> list;
     @SerializedName("image_bg") private String imageBg;
     @SerializedName("image_color") private String imageColor;
@@ -19,12 +19,8 @@ public class ContentResponse {
         this.imageBg = imageBg;
     }
 
-    @Nullable
-    public String getImageColor() {
-        if (imageColor != null && !imageColor.contains("#")) {
-            imageColor = "#" + imageColor;
-        }
-        return imageColor;
+    public int getBgColor() {
+        return parseColor(imageColor, Color.DKGRAY);
     }
 
     public List<ListItem> getList() {

@@ -25,10 +25,15 @@ public class ListItem {
         return link;
     }
 
-    public class Spoiler implements Serializable {
+    public class Spoiler extends StyleableItem implements Serializable {
+        @SerializedName("icon") private String icon;
         @SerializedName("button_text") private String buttonText;
         @SerializedName("spoiler_text") private String spoilerText;
         @SerializedName("image") private String image;
+
+        public String getIcon() {
+            return icon;
+        }
 
         public String getButtonText() {
             return buttonText;
@@ -43,9 +48,14 @@ public class ListItem {
         }
     }
 
-    public class Link implements Serializable {
+    public class Link extends StyleableItem implements Serializable {
+        @SerializedName("icon") private String icon;
         @SerializedName("link") private String link;
         @SerializedName("text") private String text;
+
+        public String getIcon() {
+            return icon;
+        }
 
         public String getLink() {
             return link;
@@ -54,5 +64,6 @@ public class ListItem {
         public String getText() {
             return text;
         }
+
     }
 }

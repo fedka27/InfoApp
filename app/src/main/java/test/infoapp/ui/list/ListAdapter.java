@@ -1,9 +1,9 @@
 package test.infoapp.ui.list;
 
+import android.graphics.drawable.GradientDrawable;
 import android.support.transition.TransitionManager;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,12 +14,14 @@ import java.util.List;
 import butterknife.BindView;
 import test.infoapp.R;
 import test.infoapp.injection.model.data.dto.ListItem;
+import test.infoapp.injection.model.data.dto.Style;
 import test.infoapp.ui.base.BaseRecyclerAdapter;
 import test.infoapp.ui.base.BaseRecyclerViewHolder;
 import test.infoapp.ui.base.RecyclerRow;
 
 
 public class ListAdapter extends BaseRecyclerAdapter {
+    private static final String TAG = ListAdapter.class.getSimpleName();
 
     private ListContract.AdapterPresenter adapterPresenter;
 
@@ -110,29 +112,56 @@ public class ListAdapter extends BaseRecyclerAdapter {
         notifyDataSetChanged();
     }
 
+    private void loadIcon(ImageView imageView, String icon) {
+        if (icon != null) {
+            Glide.with(imageView.getContext())
+                    .load(icon)
+                    .into(imageView);
+        }
+    }
+
+    private void setStyle(ViewGroup viewGroup, TextView textView, int styleId) {
+        Style style = adapterPresenter.getStyleById(styleId);
+
+        GradientDrawable gradientDrawable = new GradientDrawable();
+
+        gradientDrawable.setStroke(1, style.getBorderColor());
+
+        gradientDrawable.setColor(style.getColor());
+
+        gradientDrawable.setCornerRadius(style.getCornerRadius());
+
+        textView.setTextColor(style.getTextColor());
+
+        viewGroup.setBackground(gradientDrawable);
+    }
+
     class ViewLinkHolder extends BaseRecyclerViewHolder {
 
-        @BindView(R.id.link_button) Button linkButton;
+        @BindView(R.id.container_button) ViewGroup containerButton;
+        @BindView(R.id.link_text_view) TextView linkTextView;
+        @BindView(R.id.icon_image_view) ImageView iconImageView;
 
         public ViewLinkHolder(ViewGroup viewGroup) {
             super(viewGroup, R.layout.item_list_link);
         }
 
         void bind(ListItem.Link link) {
-            linkButton.setText(link.getText());
+            linkTextView.setText(link.getText());
 
-            linkButton.setOnClickListener(v -> {
-//                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link.getLink()));
-//                getView().getContext().startActivity(browserIntent);
-                adapterPresenter.onLinkPressed(link.getLink());
-            });
+            loadIcon(iconImageView, link.getIcon());
+            setStyle(containerButton, linkTextView, link.getStyleId());
+
+            containerButton.setOnClickListener(v -> adapterPresenter.onLinkPressed(link.getLink()));
         }
     }
 
     class ViewSpoilerHolder extends BaseRecyclerViewHolder {
 
-        @BindView(R.id.container_spoiler) ViewGroup viewGroup;
-        @BindView(R.id.spoiler_button) Button spoilerButton;
+        @BindView(R.id.container_spoiler) ViewGroup containerSpoiler;
+        @BindView(R.id.container_button) ViewGroup containerButton;
+        @BindView(R.id.icon_image_view) ImageView iconImageView;
+        @BindView(R.id.spoiler_text_view) TextView spoilerTextView;
         @BindView(R.id.text_view) TextView textView;
         @BindView(R.id.image_view) ImageView imageView;
 
@@ -141,9 +170,12 @@ public class ListAdapter extends BaseRecyclerAdapter {
         }
 
         void bind(ListItem.Spoiler spoiler) {
-            spoilerButton.setText(spoiler.getButtonText());
+            spoilerTextView.setText(spoiler.getButtonText());
 
-            spoilerButton.setOnClickListener(v -> {
+            loadIcon(iconImageView, spoiler.getIcon());
+            setStyle(containerButton, spoilerTextView, spoiler.getStyleId());
+
+            containerButton.setOnClickListener(v -> {
                 textView.setText(spoiler.getSpoilerText());
 
                 Glide.with(getView().getContext())
@@ -152,7 +184,7 @@ public class ListAdapter extends BaseRecyclerAdapter {
 
                 adapterPresenter.onClick(spoiler);
 
-                TransitionManager.beginDelayedTransition(viewGroup);
+                TransitionManager.beginDelayedTransition(containerSpoiler);
                 textView.setVisibility(textView.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
                 imageView.setVisibility(imageView.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
             });

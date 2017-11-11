@@ -8,20 +8,34 @@
     android:orientation="vertical"
     android:padding="@dimen/container_padding">
 
-    <Button
-        android:id="@+id/spoiler_button"
+    <LinearLayout
+        android:id="@+id/container_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@android:color/white"
-        android:drawableLeft="@drawable/ic_spoiler"
-        android:drawablePadding="@dimen/drawable_padding"
-        android:drawableStart="@drawable/ic_spoiler"
-        android:foreground="@drawable/selector_pressed"
+        android:background="@drawable/selector_button"
+        android:foreground="?attr/selectableItemBackground"
         android:gravity="center"
-        android:padding="@dimen/text_margin_small"
-        android:textColor="@color/black"
-        tools:text="Link Text" />
+        android:orientation="horizontal"
+        android:paddingEnd="@dimen/container_padding"
+        android:paddingStart="@dimen/container_padding">
+
+        <ImageView
+            android:id="@+id/icon_image_view"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_spoiler" />
+
+        <TextView
+            android:id="@+id/spoiler_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin_small"
+            android:textColor="@color/black"
+            tools:text="Link Text" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/text_view"
@@ -32,6 +46,7 @@
         android:textColor="@android:color/white"
         android:visibility="gone"
         tools:text="gbcbgdfgdfgdf\nfsdfsd"
+        tools:textColor="@color/black"
         tools:visibility="visible" />
 
     <ImageView

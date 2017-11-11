@@ -2,11 +2,9 @@ package test.infoapp.ui.list;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
@@ -78,12 +76,12 @@ public class ListActivity extends BaseActivity implements ListContract.View {
     }
 
     @Override
-    public void loadBgOrParseColor(String bgImage, @Nullable String bgColor) {
+    public void loadBgOrParseColor(String bgImage, int bgColor) {
         if (bgImage != null) {
             Glide.with(this)
                     .load(bgImage)
                     .bitmapTransform(new ColorFilterTransformation(this, R.color.black))
-                    .placeholder(new ColorDrawable(Color.parseColor(bgColor)))
+                    .placeholder(new ColorDrawable(bgColor))
                     .into(new SimpleTarget<GlideDrawable>() {
                         @Override
                         public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
@@ -91,9 +89,8 @@ public class ListActivity extends BaseActivity implements ListContract.View {
                         }
                     });
         } else {
-            Drawable drawable = new ColorDrawable(Color.parseColor(bgColor));
+            Drawable drawable = new ColorDrawable(bgColor);
             container.setBackground(drawable);
-//            getWindow().setBackgroundDrawable(drawable);
         }
     }
 

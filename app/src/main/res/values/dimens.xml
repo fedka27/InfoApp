@@ -11,4 +11,6 @@
     <dimen name="drawable_padding">12dp</dimen>
     <dimen name="container_padding">12dp</dimen>
     <dimen name="dialog_corners">12dp</dimen>
+    <dimen name="corner_radius">8dp</dimen>
+    <dimen name="icon_size">24dp</dimen>
 </resources>

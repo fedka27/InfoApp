@@ -29,6 +29,8 @@ public class ConfigRepository extends BaseRepository {
     public Single<Config> getConfig() {
         return api.getConfig()
                 .map(apiResponseMapper::map)
+                .onErrorReturn(throwable -> new Config())
                 .doOnSuccess(this::saveConfig);
     }
+
 }

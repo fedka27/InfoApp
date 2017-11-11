@@ -1,25 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
-    android:orientation="vertical"
     android:padding="@dimen/container_padding">
 
-    <Button
-        android:id="@+id/link_button"
+    <LinearLayout
+        android:id="@+id/container_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@android:color/white"
-        android:drawableLeft="@drawable/ic_link"
-        android:drawablePadding="@dimen/drawable_padding"
-        android:drawableStart="@drawable/ic_link"
-        android:foreground="@drawable/selector_pressed"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/selector_button"
+        android:foreground="?attr/selectableItemBackground"
         android:gravity="center"
-        android:padding="@dimen/text_margin_small"
-        android:textColor="@color/black"
-        tools:text="Link Text" />
+        android:orientation="horizontal"
+        android:paddingEnd="@dimen/container_padding"
+        android:paddingStart="@dimen/container_padding">
 
-</LinearLayout>
+        <ImageView
+            android:id="@+id/icon_image_view"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_link" />
+
+        <TextView
+            android:id="@+id/link_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin_small"
+            android:drawablePadding="@dimen/drawable_padding"
+            android:foreground="?attr/selectableItemBackground"
+            android:textColor="@color/black"
+            tools:text="Link Text" />
+
+    </LinearLayout>
+
+</FrameLayout>
