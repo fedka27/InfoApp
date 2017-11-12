@@ -13,7 +13,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import test.infoapp.R;
-import test.infoapp.injection.model.data.dto.ListItem;
+import test.infoapp.injection.model.data.dto.Item;
 import test.infoapp.injection.model.data.dto.Style;
 import test.infoapp.ui.base.BaseRecyclerAdapter;
 import test.infoapp.ui.base.BaseRecyclerViewHolder;
@@ -55,7 +55,7 @@ public class ListAdapter extends BaseRecyclerAdapter {
 
             @Override
             public boolean is(Object item) {
-                return item instanceof ListItem && ((ListItem) item).isLink();
+                return item instanceof Item && ((Item) item).isLink();
             }
 
             @Override
@@ -72,14 +72,14 @@ public class ListAdapter extends BaseRecyclerAdapter {
             public void bind(BaseRecyclerViewHolder holder, Object item) {
                 ViewLinkHolder viewTextHolder = (ViewLinkHolder) holder;
 
-                viewTextHolder.bind(((ListItem) item).getLink());
+                viewTextHolder.bind(((Item) item).getLink());
             }
         });
         recyclerRow.addRow(new RecyclerRow.Row() {
 
             @Override
             public boolean is(Object item) {
-                return item instanceof ListItem && ((ListItem) item).isSpoiler();
+                return item instanceof Item && ((Item) item).isSpoiler();
             }
 
             @Override
@@ -96,7 +96,7 @@ public class ListAdapter extends BaseRecyclerAdapter {
             public void bind(BaseRecyclerViewHolder holder, Object item) {
                 ViewSpoilerHolder spoilerHolder = (ViewSpoilerHolder) holder;
 
-                spoilerHolder.bind(((ListItem) item).getSpoiler());
+                spoilerHolder.bind(((Item) item).getSpoiler());
             }
         });
     }
@@ -105,23 +105,23 @@ public class ListAdapter extends BaseRecyclerAdapter {
         itemList.add(null);
     }
 
-    public void setItems(List<ListItem> items) {
+    public void setItems(List<Item> items) {
         clearList();
         addToolbarHolder();
         itemList.addAll(items);
         notifyDataSetChanged();
     }
 
-    private void loadIcon(ImageView imageView, String icon) {
-        if (icon != null) {
-            Glide.with(imageView.getContext())
-                    .load(icon)
-                    .into(imageView);
-        }
-    }
+    private void setStyle(ViewGroup viewGroup,
+                          TextView textView,
+                          ImageView iconImageView,
+                          Style style) {
 
-    private void setStyle(ViewGroup viewGroup, TextView textView, int styleId) {
-        Style style = adapterPresenter.getStyleById(styleId);
+        if (iconImageView != null) {
+            Glide.with(iconImageView.getContext())
+                    .load(style.getIcon())
+                    .into(iconImageView);
+        }
 
         GradientDrawable gradientDrawable = new GradientDrawable();
 
@@ -146,11 +146,10 @@ public class ListAdapter extends BaseRecyclerAdapter {
             super(viewGroup, R.layout.item_list_link);
         }
 
-        void bind(ListItem.Link link) {
+        void bind(Item.Link link) {
             linkTextView.setText(link.getText());
 
-            loadIcon(iconImageView, link.getIcon());
-            setStyle(containerButton, linkTextView, link.getStyleId());
+            setStyle(containerButton, linkTextView, iconImageView, link.getStyle());
 
             containerButton.setOnClickListener(v -> adapterPresenter.onLinkPressed(link.getLink()));
         }
@@ -169,24 +168,24 @@ public class ListAdapter extends BaseRecyclerAdapter {
             super(viewGroup, R.layout.item_list_spoiler);
         }
 
-        void bind(ListItem.Spoiler spoiler) {
+        void bind(Item.Spoiler spoiler) {
             spoilerTextView.setText(spoiler.getButtonText());
 
-            loadIcon(iconImageView, spoiler.getIcon());
-            setStyle(containerButton, spoilerTextView, spoiler.getStyleId());
+            setStyle(containerButton, spoilerTextView, iconImageView, spoiler.getStyle());
+
+            textView.setText(spoiler.getSpoilerText());
+
+            Glide.with(getView().getContext())
+                    .load(spoiler.getImage())
+                    .into(imageView);
 
             containerButton.setOnClickListener(v -> {
-                textView.setText(spoiler.getSpoilerText());
-
-                Glide.with(getView().getContext())
-                        .load(spoiler.getImage())
-                        .into(imageView);
 
                 adapterPresenter.onClick(spoiler);
 
                 TransitionManager.beginDelayedTransition(containerSpoiler);
                 textView.setVisibility(textView.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
-                imageView.setVisibility(imageView.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
+                imageView.setVisibility(spoiler.getImage() != null && imageView.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
             });
         }
     }

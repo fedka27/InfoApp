@@ -24,7 +24,7 @@ import jp.wasabeef.glide.transformations.ColorFilterTransformation;
 import test.infoapp.R;
 import test.infoapp.injection.ComponentProvider;
 import test.infoapp.injection.model.data.dto.Config;
-import test.infoapp.injection.model.data.dto.ListItem;
+import test.infoapp.injection.model.data.dto.Item;
 import test.infoapp.ui.ProgressWebDialog;
 import test.infoapp.ui.base.BaseActivity;
 
@@ -95,7 +95,7 @@ public class ListActivity extends BaseActivity implements ListContract.View {
     }
 
     @Override
-    public void setList(List<ListItem> listItems) {
+    public void setList(List<Item> listItems) {
         listAdapter.setItems(listItems);
     }
 

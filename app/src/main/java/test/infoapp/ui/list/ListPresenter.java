@@ -1,13 +1,11 @@
 package test.infoapp.ui.list;
 
 import io.reactivex.disposables.CompositeDisposable;
-import test.infoapp.injection.model.data.dto.ListItem;
-import test.infoapp.injection.model.data.dto.Style;
+import test.infoapp.injection.model.data.dto.Item;
 import test.infoapp.injection.model.interactors.ViewInteractor;
 import test.infoapp.injection.model.managers.AdsManager;
 import test.infoapp.injection.model.repositories.ConfigRepository;
 import test.infoapp.injection.model.repositories.ContentRepository;
-import test.infoapp.injection.model.repositories.StylesRepository;
 import test.infoapp.util.L;
 import test.infoapp.util.rx.RxSchedulersAbs;
 
@@ -17,7 +15,6 @@ public class ListPresenter implements ListContract.Presenter {
 
     private ConfigRepository configRepository;
     private ContentRepository contentRepository;
-    private StylesRepository stylesRepository;
     private AdsManager adsManager;
     private RxSchedulersAbs rxSchedulersAbs;
     private ViewInteractor viewInteractor;
@@ -27,14 +24,12 @@ public class ListPresenter implements ListContract.Presenter {
 
     public ListPresenter(ConfigRepository configRepository,
                          ContentRepository contentRepository,
-                         StylesRepository stylesRepository,
                          AdsManager adsClickManager,
                          RxSchedulersAbs rxSchedulersAbs,
                          ViewInteractor viewInteractor,
                          CompositeDisposable compositeDisposable) {
         this.configRepository = configRepository;
         this.contentRepository = contentRepository;
-        this.stylesRepository = stylesRepository;
         this.adsManager = adsClickManager;
         this.rxSchedulersAbs = rxSchedulersAbs;
         this.viewInteractor = viewInteractor;
@@ -60,14 +55,14 @@ public class ListPresenter implements ListContract.Presenter {
                 .compose(viewInteractor.manageProgressSingle(view))
                 .subscribe(content -> {
                             view.loadBgOrParseColor(content.getImageBg(), content.getBgColor());
-                            view.setList(content.getList());
+                            view.setList(content.getItems());
                         },
                         throwable -> viewInteractor.manageError(view, throwable)));
 
     }
 
     @Override
-    public void onClick(ListItem.Spoiler spoiler) {
+    public void onClick(Item.Spoiler spoiler) {
         boolean isShowAds = adsManager.clickToLinkAndIsShowAds();
         L.d(TAG, "isShowAds - " + isShowAds);
         if (isShowAdsByFirstClick) {
@@ -77,11 +72,6 @@ public class ListPresenter implements ListContract.Presenter {
         if (isShowAds) {
             adsManager.showAdsOfType(configRepository.getConfigSaved(), view);
         }
-    }
-
-    @Override
-    public Style getStyleById(int styleId) {
-        return stylesRepository.getStyleById(styleId);
     }
 
     @Override

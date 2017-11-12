@@ -8,7 +8,6 @@ import test.infoapp.injection.model.interactors.ViewInteractor;
 import test.infoapp.injection.model.managers.AdsManager;
 import test.infoapp.injection.model.repositories.ConfigRepository;
 import test.infoapp.injection.model.repositories.ContentRepository;
-import test.infoapp.injection.model.repositories.StylesRepository;
 import test.infoapp.ui.list.ListContract;
 import test.infoapp.ui.list.ListPresenter;
 import test.infoapp.ui.main.MainContract;
@@ -24,13 +23,11 @@ public class PresenterModule {
 
     @Provides
     SplashContract.Presenter provideSplashPresenter(ConfigRepository configRepository,
-                                                    StylesRepository stylesRepository,
                                                     RxSchedulersAbs rxSchedulersAbs,
                                                     AdsManager adsManager,
                                                     ConnectionUtilAbs connectionUtilAbs,
                                                     CompositeDisposable compositeDisposable) {
         return new SplashPresenter(configRepository,
-                stylesRepository,
                 rxSchedulersAbs,
                 adsManager,
                 connectionUtilAbs,
@@ -46,14 +43,12 @@ public class PresenterModule {
     @Provides
     ListContract.Presenter provideListPresenter(ConfigRepository configRepository,
                                                 ContentRepository contentRepository,
-                                                StylesRepository stylesRepository,
                                                 AdsManager adsClickManager,
                                                 RxSchedulersAbs rxSchedulersAbs,
                                                 ViewInteractor viewInteractor,
                                                 CompositeDisposable compositeDisposable) {
         return new ListPresenter(configRepository,
                 contentRepository,
-                stylesRepository,
                 adsClickManager,
                 rxSchedulersAbs,
                 viewInteractor,

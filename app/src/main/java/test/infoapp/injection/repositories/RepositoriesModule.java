@@ -9,7 +9,6 @@ import test.infoapp.injection.model.data.mapper.ApiResponseMapper;
 import test.infoapp.injection.model.managers.AdsManager;
 import test.infoapp.injection.model.repositories.ConfigRepository;
 import test.infoapp.injection.model.repositories.ContentRepository;
-import test.infoapp.injection.model.repositories.StylesRepository;
 
 @Module
 @Singleton
@@ -30,13 +29,6 @@ public class RepositoriesModule {
         return new ConfigRepository(api, apiResponseMapper);
     }
 
-
-    @Provides
-    @Singleton
-    StylesRepository provideStylesRepository(Api api,
-                                             ApiResponseMapper apiResponseMapper) {
-        return new StylesRepository(api, apiResponseMapper);
-    }
 
     @Provides
     @Singleton

@@ -5,8 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import java.util.List;
 
 import test.infoapp.injection.model.data.dto.Config;
-import test.infoapp.injection.model.data.dto.ListItem;
-import test.infoapp.injection.model.data.dto.Style;
+import test.infoapp.injection.model.data.dto.Item;
 import test.infoapp.ui.AdsView;
 import test.infoapp.ui.base.interfaces.BaseScreen;
 import test.infoapp.ui.base.interfaces.IProgressListener;
@@ -21,7 +20,7 @@ public interface ListContract {
 
         void loadBgOrParseColor(String bgImage, int bgColor);
 
-        void setList(List<ListItem> listItems);
+        void setList(List<Item> listItems);
 
         void showProgressWebDialog(String link);
     }
@@ -30,10 +29,8 @@ public interface ListContract {
     }
 
     interface AdapterPresenter extends BaseScreen.AdapterPresenter {
-        void onClick(ListItem.Spoiler spoiler);
+        void onClick(Item.Spoiler spoiler);
 
         void onLinkPressed(String link);
-
-        Style getStyleById(int styleId);
     }
 }
