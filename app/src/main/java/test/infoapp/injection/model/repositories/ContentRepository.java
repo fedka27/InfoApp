@@ -1,5 +1,7 @@
 package test.infoapp.injection.model.repositories;
 
+import android.support.annotation.Nullable;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,10 +11,13 @@ import io.reactivex.Single;
 import test.infoapp.injection.model.data.api.Api;
 import test.infoapp.injection.model.data.dto.Config;
 import test.infoapp.injection.model.data.dto.Item;
+import test.infoapp.injection.model.data.dto.Link;
 import test.infoapp.injection.model.data.dto.ListContent;
 import test.infoapp.injection.model.data.dto.ListItem;
+import test.infoapp.injection.model.data.dto.Spoiler;
 import test.infoapp.injection.model.data.dto.Style;
 import test.infoapp.injection.model.data.mapper.ApiResponseMapper;
+import test.infoapp.util.L;
 
 public class ContentRepository extends BaseRepository {
     private static final String TAG = ContentRepository.class.getSimpleName();
@@ -37,43 +42,49 @@ public class ContentRepository extends BaseRepository {
                         contentResponse.getImageBg(),
                         contentResponse.getBgColor(),
                         contentResponse.getList(),
-                        buttonsResponse.getButtons(),
+                        buttonsResponse.getLinks(),
                         stylesResponse.getStyles()));
     }
 
     public ListContent parseContent(String imageBg, int colorBg,
                                     List<ListItem> listItems,
-                                    List<Item> buttons,
+                                    List<Link> links,
                                     List<Style> styles) {
-        Map<Long, Object> buttonsObjectMap = new HashMap<>();
-        Map<Long, Style> stylesMap = new HashMap<>();
+        Map<Long, Link> linkMap = new HashMap<>();
+        Map<Long, Style> styleMap = new HashMap<>();
 
-        for (Item item : buttons) {
-
-            long id = item.getId();
-            Object object = item.getItem();
-
-            buttonsObjectMap.put(id, object);
+        for (Link link : links) {
+            linkMap.put(link.getId(), link);
         }
 
         for (Style style : styles) {
-            stylesMap.put(style.getId(), style);
+            styleMap.put(style.getId(), style);
         }
 
         List<Item> items = new ArrayList<>();
 
         for (ListItem itemList : listItems) {
-            Object object = buttonsObjectMap.get(itemList.getButtonId());
+            Style style = styleMap.get(itemList.getStyleId());
 
-            Style style = stylesMap.get(itemList.getStyleId()) != null ?
-                    stylesMap.get(itemList.getStyleId()) : Style.getDefaultStyle();
+            if (style == null) style = Style.getDefaultStyle();
 
-            if (object instanceof Item.Spoiler) {
-                Item.Spoiler spoiler = (Item.Spoiler) object;
-                items.add(new Item(new Item.Spoiler(spoiler, style)));
-            } else if (object instanceof Item.Link) {
-                Item.Link link = (Item.Link) object;
-                items.add(new Item(new Item.Link(link, style)));
+            if (itemList.isSpoiler()) {
+                Spoiler spoiler = itemList.getSpoiler();
+
+//                spoiler.setStyle(style);
+
+                items.add(new Item(new Spoiler(spoiler, style)));
+            } else {
+                @Nullable Link link = linkMap.get(itemList.getButtonId());
+
+                if (link == null) {
+                    L.e(TAG, "Not found 'link' of buttonId-" + itemList.getButtonId());
+                    continue;
+                }
+
+//                link.setStyle(style);
+
+                items.add(new Item(new Link(link, style)));
             }
         }
 

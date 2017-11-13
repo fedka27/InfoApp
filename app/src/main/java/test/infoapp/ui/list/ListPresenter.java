@@ -1,7 +1,7 @@
 package test.infoapp.ui.list;
 
 import io.reactivex.disposables.CompositeDisposable;
-import test.infoapp.injection.model.data.dto.Item;
+import test.infoapp.injection.model.data.dto.Spoiler;
 import test.infoapp.injection.model.interactors.ViewInteractor;
 import test.infoapp.injection.model.managers.AdsManager;
 import test.infoapp.injection.model.repositories.ConfigRepository;
@@ -45,8 +45,8 @@ public class ListPresenter implements ListContract.Presenter {
 
     @Override
     public void onStart() {
-        view.configureAds(configRepository.getConfigSaved());
         loadData();
+        view.configureAds(configRepository.getConfigSaved());
     }
 
     private void loadData() {
@@ -62,7 +62,7 @@ public class ListPresenter implements ListContract.Presenter {
     }
 
     @Override
-    public void onClick(Item.Spoiler spoiler) {
+    public void onClick(Spoiler spoiler) {
         boolean isShowAds = adsManager.clickToLinkAndIsShowAds();
         L.d(TAG, "isShowAds - " + isShowAds);
         if (isShowAdsByFirstClick) {

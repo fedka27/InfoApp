@@ -4,12 +4,12 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import test.infoapp.injection.model.data.dto.Item;
+import test.infoapp.injection.model.data.dto.Link;
 
 public class ButtonsResponse {
-    @SerializedName("buttons") private List<Item> buttons;
+    @SerializedName("buttons") private List<Link> buttons;
 
-    public List<Item> getButtons() {
+    public List<Link> getLinks() {
         return buttons;
     }
 }

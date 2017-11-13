@@ -56,19 +56,19 @@ public class MainActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setSupportActionBar(toolbar);
-
-        setTitle(R.string.activity_main_title);
+        setSupportActionBar(new Toolbar(this));
 
         actionBarDrawerToggle = new ActionBarDrawerToggle(this,
                 drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
 
+        setTitle(R.string.activity_main_title);
+        getSupportActionBar().setLogo(R.drawable.ikonka);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
         navigationView.setNavigationItemSelectedListener(this);
-
 
         onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_cat_1));
 

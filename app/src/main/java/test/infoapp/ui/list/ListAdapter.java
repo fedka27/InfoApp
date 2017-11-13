@@ -14,6 +14,8 @@ import java.util.List;
 import butterknife.BindView;
 import test.infoapp.R;
 import test.infoapp.injection.model.data.dto.Item;
+import test.infoapp.injection.model.data.dto.Link;
+import test.infoapp.injection.model.data.dto.Spoiler;
 import test.infoapp.injection.model.data.dto.Style;
 import test.infoapp.ui.base.BaseRecyclerAdapter;
 import test.infoapp.ui.base.BaseRecyclerViewHolder;
@@ -114,12 +116,13 @@ public class ListAdapter extends BaseRecyclerAdapter {
 
     private void setStyle(ViewGroup viewGroup,
                           TextView textView,
+                          String icon,
                           ImageView iconImageView,
                           Style style) {
 
         if (iconImageView != null) {
             Glide.with(iconImageView.getContext())
-                    .load(style.getIcon())
+                    .load(icon)
                     .into(iconImageView);
         }
 
@@ -146,10 +149,10 @@ public class ListAdapter extends BaseRecyclerAdapter {
             super(viewGroup, R.layout.item_list_link);
         }
 
-        void bind(Item.Link link) {
+        void bind(Link link) {
             linkTextView.setText(link.getText());
 
-            setStyle(containerButton, linkTextView, iconImageView, link.getStyle());
+            setStyle(containerButton, linkTextView, link.getIcon(), iconImageView, link.getStyle());
 
             containerButton.setOnClickListener(v -> adapterPresenter.onLinkPressed(link.getLink()));
         }
@@ -168,10 +171,10 @@ public class ListAdapter extends BaseRecyclerAdapter {
             super(viewGroup, R.layout.item_list_spoiler);
         }
 
-        void bind(Item.Spoiler spoiler) {
+        void bind(Spoiler spoiler) {
             spoilerTextView.setText(spoiler.getButtonText());
 
-            setStyle(containerButton, spoilerTextView, iconImageView, spoiler.getStyle());
+            setStyle(containerButton, spoilerTextView, spoiler.getIcon(), iconImageView, spoiler.getStyle());
 
             textView.setText(spoiler.getSpoilerText());
 

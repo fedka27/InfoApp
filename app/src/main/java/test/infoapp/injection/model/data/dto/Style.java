@@ -13,7 +13,6 @@ public class Style extends ColorHelper {
     @SerializedName("border_color") private String border_color;
     @SerializedName("text_color") private String text_color;
     @SerializedName("corner_radius") private float corner_radius;
-    @SerializedName("icon") private String icon;
 
 
 
@@ -27,7 +26,6 @@ public class Style extends ColorHelper {
         this.border_color = border_color;
         this.text_color = text_color;
         this.corner_radius = corner_radius;
-        this.icon = null;
     }
 
     public static Style getDefaultStyle() {
@@ -56,9 +54,5 @@ public class Style extends ColorHelper {
 
     public float getCornerRadius() {
         return corner_radius > MAX_CORNER_RADIUS ? DEF_CORNER_RADIUS : corner_radius;
-    }
-
-    public String getIcon() {
-        return icon;
     }
 }

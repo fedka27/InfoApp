@@ -18,6 +18,7 @@
             android:src="@drawable/ikonka" />
 
         <TextView
+            android:id="@+id/title_toolbar_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

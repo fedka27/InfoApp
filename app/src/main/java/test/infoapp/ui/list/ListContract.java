@@ -6,6 +6,7 @@ import java.util.List;
 
 import test.infoapp.injection.model.data.dto.Config;
 import test.infoapp.injection.model.data.dto.Item;
+import test.infoapp.injection.model.data.dto.Spoiler;
 import test.infoapp.ui.AdsView;
 import test.infoapp.ui.base.interfaces.BaseScreen;
 import test.infoapp.ui.base.interfaces.IProgressListener;
@@ -29,7 +30,7 @@ public interface ListContract {
     }
 
     interface AdapterPresenter extends BaseScreen.AdapterPresenter {
-        void onClick(Item.Spoiler spoiler);
+        void onClick(Spoiler spoiler);
 
         void onLinkPressed(String link);
     }
