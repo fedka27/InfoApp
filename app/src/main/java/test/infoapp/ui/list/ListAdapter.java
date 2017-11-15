@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.yandex.metrica.YandexMetrica;
 
 import java.util.List;
 
@@ -154,7 +155,7 @@ public class ListAdapter extends BaseRecyclerAdapter {
 
             setStyle(containerButton, linkTextView, link.getIcon(), iconImageView, link.getStyle());
 
-            containerButton.setOnClickListener(v -> adapterPresenter.onLinkPressed(link.getLink()));
+            containerButton.setOnClickListener(v -> adapterPresenter.onLinkPressed(link));
         }
     }
 
@@ -183,6 +184,9 @@ public class ListAdapter extends BaseRecyclerAdapter {
                     .into(imageView);
 
             containerButton.setOnClickListener(v -> {
+
+                YandexMetrica.reportEvent(getView().getContext()
+                        .getString(R.string.metrica_event_click_button, spoiler.getButtonText()));
 
                 adapterPresenter.onClick(spoiler);
 

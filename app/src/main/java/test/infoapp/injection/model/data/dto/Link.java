@@ -31,6 +31,9 @@ public class Link implements Serializable {
         return icon;
     }
 
+    /**
+     * @return url
+     */
     public String getLink() {
         return link;
     }

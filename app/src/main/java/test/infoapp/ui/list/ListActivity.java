@@ -106,8 +106,8 @@ public class ListActivity extends BaseActivity implements ListContract.View {
     }
 
     @Override
-    public void showProgressWebDialog(String link) {
-        new ProgressWebDialog(this, link).show();
+    public void showProgressWebDialog(String linkTitle, String link) {
+        new ProgressWebDialog(this, linkTitle, link).show();
     }
 
     @Override

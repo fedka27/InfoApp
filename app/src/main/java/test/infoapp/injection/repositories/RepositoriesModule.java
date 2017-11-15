@@ -1,5 +1,7 @@
 package test.infoapp.injection.repositories;
 
+import android.content.Context;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -32,7 +34,8 @@ public class RepositoriesModule {
 
     @Provides
     @Singleton
-    AdsManager provideAdsManager(ConfigRepository configRepository) {
-        return new AdsManager(configRepository.getConfigSaved().getAds_click_interval());
+    AdsManager provideAdsManager(ConfigRepository configRepository, Context context) {
+        return new AdsManager(configRepository.getConfigSaved().getAds_click_interval(),
+                context.getResources());
     }
 }

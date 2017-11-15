@@ -6,6 +6,8 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.webkit.WebView;
 
+import com.yandex.metrica.YandexMetrica;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,11 +20,14 @@ public class ProgressWebDialog extends BaseDialog {
     private static final String TAG = ProgressWebDialog.class.getSimpleName();
     @BindView(R.id.webview) WebView webview;
 
+    private String linkTitle;
     private String link;
 
     public ProgressWebDialog(@NonNull Context context,
+                             String linkTitle,
                              String link) {
         super(context);
+        this.linkTitle = linkTitle;
         this.link = link;
     }
 
@@ -36,10 +41,14 @@ public class ProgressWebDialog extends BaseDialog {
         webview.getSettings().setJavaScriptEnabled(true);
         webview.setWebViewClient(new WebViewClient());
         webview.loadUrl(link);
+
+        // TODO: 15.11.2017 Yandex Metrica. Если нужно в начале  цепочки отправлять событие
+//        eventLink(link);
     }
 
-    private boolean isUrlMarket(String url) {
+    private boolean isUrlMarketOpen(String url) {
         if (url.contains("play.google") || url.contains("market")) {
+
 
             try {
                 Pattern pattern = Pattern.compile(".+\\bdetails\\?id=([^&]+)");
@@ -48,31 +57,35 @@ public class ProgressWebDialog extends BaseDialog {
                 if (matcher.find()) {
                     String appId = matcher.group(1);
                     L.d(TAG, "Open App - " + appId);
-                    getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appId)));
-                } else {
-                    L.d(TAG, "No match id of - " + url);
-                    loadBrowserUrl(url);
+                    loadBrowserUrl(true, appId);
+                    return true;
                 }
 
             } catch (Exception e) {
-                loadBrowserUrl(url);
+                return false;
             }
-
-            dismiss();
-
-            return true;
         }
-
-        dismiss();
 
         return false;
     }
 
-    private void loadBrowserUrl(String url) {
-        Uri uri = Uri.parse(url);
+    private void loadBrowserUrl(boolean isMarket, String urlOrAppId) {
+        if (isMarket) urlOrAppId = "market://details?id=" + urlOrAppId;
+
+        // TODO: 15.11.2017 Yandex Metrica. Если нужно в конце цепочки отправлять событие
+        eventLink(urlOrAppId);
+
+        Uri uri = Uri.parse(urlOrAppId);
 
         L.d(TAG, "Load url - " + uri.toString());
         getContext().startActivity(new Intent(Intent.ACTION_VIEW, uri));
+    }
+
+    private void eventLink(String param) {
+        YandexMetrica.reportEvent(getContext()
+                .getString(R.string.metrica_event_click_link,
+                        linkTitle, param));
+
     }
 
     @Override
@@ -83,19 +96,14 @@ public class ProgressWebDialog extends BaseDialog {
 
     private class WebViewClient extends android.webkit.WebViewClient {
 
-//        @Override
-//        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-//            return isUrlMarket(url);
-//        }
-
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
-            if (!isUrlMarket(url)) {
+            if (!isUrlMarketOpen(url)) {
                 L.d(TAG, "Page finished | Load url - " + url);
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                getContext().startActivity(browserIntent);
+                loadBrowserUrl(false, url);
             }
+            dismiss();
         }
     }
 }

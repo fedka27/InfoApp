@@ -1,6 +1,7 @@
 package test.infoapp.ui.list;
 
 import io.reactivex.disposables.CompositeDisposable;
+import test.infoapp.injection.model.data.dto.Link;
 import test.infoapp.injection.model.data.dto.Spoiler;
 import test.infoapp.injection.model.interactors.ViewInteractor;
 import test.infoapp.injection.model.managers.AdsManager;
@@ -75,8 +76,8 @@ public class ListPresenter implements ListContract.Presenter {
     }
 
     @Override
-    public void onLinkPressed(String link) {
-        view.showProgressWebDialog(link);
+    public void onLinkPressed(Link link) {
+        view.showProgressWebDialog(link.getText(), link.getLink());
     }
 
     @Override

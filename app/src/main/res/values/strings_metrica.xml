@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="metrica_event_call_interstitial">call_ads_interstitial</string>
+    <string name="metrica_event_show_interstitial">show_ads_interstitial</string>
+
+    <string name="metrica_event_call_nonskipable">call_ads_nonskipable</string>
+    <string name="metrica_event_show_nonskipable">show_ads_nonskipable</string>
+
+    <string name="metrica_event_show_banner">show_ads_bottombanner</string>
+
+    <!--Fist %s - name of the button, secons -%s - http link url-->
+    <string name="metrica_event_click_link">click_%s_%s</string>
+
+    <!--Fist %s - name of the button-->
+    <string name="metrica_event_click_button">click_%s</string>
+
+</resources>
