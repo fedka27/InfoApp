@@ -58,8 +58,9 @@ dependencies {
 
     implementation 'com.google.android.gms:play-services-ads:10.2.1'
     implementation 'com.google.android.gms:play-services-location:10.2.1'
-    implementation project(':adcolony-sdk-3.1.2')
     implementation 'com.squareup.picasso:picasso:2.5.2'
+
+    implementation project(':adcolony-sdk-3.1.2')
 
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'jp.wasabeef:glide-transformations:2.0.2'

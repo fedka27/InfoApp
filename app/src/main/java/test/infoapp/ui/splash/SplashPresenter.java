@@ -71,7 +71,6 @@ public class SplashPresenter implements SplashContract.Presenter {
 
                 @Override
                 public void onInterstitialFailedToLoad() {
-                    runNextActivity(config.isOffline());
                 }
 
                 @Override
@@ -113,7 +112,6 @@ public class SplashPresenter implements SplashContract.Presenter {
 
                 @Override
                 public void onNonSkippableVideoFinished() {
-                    runNextActivity(config.isOffline());
 
                 }
 

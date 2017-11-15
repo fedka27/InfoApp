@@ -209,6 +209,19 @@
             android:hardwareAccelerated="false"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
 
+        <!-- suppress AndroidDomInspection -->
+        <activity
+            android:name="com.vungle.publisher.VideoFullScreenAdActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <!-- suppress AndroidDomInspection -->
+        <activity
+            android:name="com.vungle.publisher.MraidFullScreenAdActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+        <!-- suppress AndroidDomInspection -->
+        <activity
+            android:name="com.vungle.publisher.FlexViewAdActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+
         <!--suppress AndroidDomInspection -->
         <activity
             android:name="com.jirbo.adcolony.AdColonyOverlay"

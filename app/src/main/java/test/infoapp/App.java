@@ -4,6 +4,8 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
+import com.appodeal.ads.Appodeal;
+
 import io.paperdb.Paper;
 import test.infoapp.injection.AppComponent;
 import test.infoapp.injection.AppModule;
@@ -35,5 +37,8 @@ public class App extends MultiDexApplication {
         ComponentProvider.getInstance().init(appComponent, presentersComponent);
 
         Paper.init(this);
+
+        Appodeal.disableNetwork(this, "facebook");
+        Appodeal.disableNetwork(this, "vungle");
     }
 }
