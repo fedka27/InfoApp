@@ -1,7 +1,6 @@
 package test.infoapp.util;
 
 import android.os.Build;
-import android.support.v4.text.TextUtilsCompat;
 import android.text.Html;
 import android.text.Spanned;
 
@@ -15,7 +14,6 @@ public class HtmlSpannableUtil {
         if (text == null) {
             return null;
         }
-        text = TextUtilsCompat.htmlEncode(text);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             return Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY);
         } else {

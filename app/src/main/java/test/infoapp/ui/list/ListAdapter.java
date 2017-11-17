@@ -21,6 +21,7 @@ import test.infoapp.injection.model.data.dto.Style;
 import test.infoapp.ui.base.BaseRecyclerAdapter;
 import test.infoapp.ui.base.BaseRecyclerViewHolder;
 import test.infoapp.ui.base.RecyclerRow;
+import test.infoapp.util.HtmlSpannableUtil;
 
 
 public class ListAdapter extends BaseRecyclerAdapter {
@@ -151,7 +152,7 @@ public class ListAdapter extends BaseRecyclerAdapter {
         }
 
         void bind(Link link) {
-            linkTextView.setText(link.getText());
+            linkTextView.setText(HtmlSpannableUtil.getString(link.getText()));
 
             setStyle(containerButton, linkTextView, link.getIcon(), iconImageView, link.getStyle());
 
@@ -173,11 +174,12 @@ public class ListAdapter extends BaseRecyclerAdapter {
         }
 
         void bind(Spoiler spoiler) {
-            spoilerTextView.setText(spoiler.getButtonText());
+            spoilerTextView.setText(HtmlSpannableUtil.getString(spoiler.getButtonText()));
+
+            textView.setText(HtmlSpannableUtil.getString(spoiler.getSpoilerText()));
 
             setStyle(containerButton, spoilerTextView, spoiler.getIcon(), iconImageView, spoiler.getStyle());
 
-            textView.setText(spoiler.getSpoilerText());
 
             Glide.with(getView().getContext())
                     .load(spoiler.getImage())
