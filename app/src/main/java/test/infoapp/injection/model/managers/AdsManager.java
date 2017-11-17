@@ -25,7 +25,7 @@ public class AdsManager {
 
     public boolean clickToLinkAndIsShowAds() {
         clickCount++;
-
+        L.d(TAG, "click - " + clickCount + " of interval - " + clickCountToAds);
         if (clickCount >= clickCountToAds) {
             clearClickCount();
             return true;

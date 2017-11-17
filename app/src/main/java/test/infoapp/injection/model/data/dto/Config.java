@@ -15,7 +15,7 @@ public class Config implements Serializable {
     @SerializedName("ads_interstetial") private int ads_interstetial = 50;
     @SerializedName("ads_video") private int ads_video = 50;
     @SerializedName("ads_banner") private boolean ads_banner = false;
-    @SerializedName("ads_click_interval") private int ads_click_interval = 3;
+    @SerializedName("ads_click_interval") private int ads_click_interval = 5;
 
     public Config(String content_buttons,
                   String content_url,

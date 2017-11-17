@@ -112,6 +112,8 @@ public class SplashPresenter implements SplashContract.Presenter {
 
 
     private synchronized void runNextActivity(boolean offline) {
+        Appodeal.setInterstitialCallbacks(null);
+        Appodeal.setNonSkippableVideoCallbacks(null);
         if (offline) {
             view.openLocalActivity();
         } else {

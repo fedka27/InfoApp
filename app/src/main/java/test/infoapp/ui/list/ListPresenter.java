@@ -12,6 +12,7 @@ import test.infoapp.util.rx.RxSchedulersAbs;
 
 public class ListPresenter implements ListContract.Presenter {
     private static final String TAG = ListPresenter.class.getSimpleName();
+    private static final String KEY_LIST = TAG + "_LIST";
     private ListContract.View view;
 
     private ConfigRepository configRepository;

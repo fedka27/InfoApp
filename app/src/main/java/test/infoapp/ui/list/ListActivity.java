@@ -30,6 +30,8 @@ import test.infoapp.ui.ProgressWebDialog;
 import test.infoapp.ui.base.BaseActivity;
 
 public class ListActivity extends BaseActivity implements ListContract.View {
+    private static final String TAG = ListActivity.class.getSimpleName();
+    private static final String KEY_LIST = TAG + "_LIST";
 
     @Inject ListContract.Presenter presenter;
 

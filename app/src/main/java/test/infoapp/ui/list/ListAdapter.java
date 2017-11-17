@@ -193,11 +193,11 @@ public class ListAdapter extends BaseRecyclerAdapter {
                 toggleSpoiler(spoiler);
             });
 
-            if (spoiler.isOpen()) {
-                openSpoiler(spoiler.isImage());
-            } else {
-                closeSpoiler(spoiler.isImage());
-            }
+//            if (spoiler.isOpen()) {
+//                openSpoiler(spoiler.isImage());
+//            } else {
+//                closeSpoiler(spoiler.isImage());
+//            }
         }
 
         private void toggleSpoiler(Spoiler spoiler) {

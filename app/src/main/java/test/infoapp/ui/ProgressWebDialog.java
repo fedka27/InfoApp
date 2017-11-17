@@ -38,7 +38,8 @@ public class ProgressWebDialog extends BaseDialog {
 
     @Override
     protected void onViewCreated() {
-        webview.getSettings().setJavaScriptEnabled(true);
+        webview.getSettings().setLoadsImagesAutomatically(false);
+        webview.getSettings().setBlockNetworkImage(true);
         webview.setWebViewClient(new WebViewClient());
         webview.loadUrl(link);
 
