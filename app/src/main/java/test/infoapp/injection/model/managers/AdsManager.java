@@ -60,24 +60,30 @@ public class AdsManager {
         return Appodeal.isLoaded(Appodeal.INTERSTITIAL);
     }
 
-    public void showAdsOfType(Config config, AdsView view) {
-        if (!config.isAds()) return;
+    public boolean showAdsOfType(Config config, AdsView view) {
+        if (!config.isAds()) return false;
         if (isVideoTypeAds(config)) {
             if (isVideoLoaded()) {
                 eventShowVideo();
                 view.showAdsVideo();
+                return true;
             } else if (isInterstitialLoaded()) {
                 eventShowVideo();
                 view.showAdsInterstitial();
+                return true;
             }
+            return false;
         } else {
             if (isInterstitialLoaded()) {
                 eventShowInterstitial();
                 view.showAdsInterstitial();
+                return true;
             } else if (isVideoLoaded()) {
                 eventShowVideo();
                 view.showAdsVideo();
+                return true;
             }
+            return false;
         }
     }
 

@@ -1,26 +1,35 @@
 package test.infoapp.injection.model.repositories;
 
+import android.graphics.Color;
 import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.reactivex.Single;
+import io.paperdb.Paper;
+import io.reactivex.Observable;
+import io.reactivex.functions.Function3;
 import test.infoapp.injection.model.data.api.Api;
+import test.infoapp.injection.model.data.dto.ColorHelper;
 import test.infoapp.injection.model.data.dto.Config;
+import test.infoapp.injection.model.data.dto.ContentResponse;
 import test.infoapp.injection.model.data.dto.Item;
 import test.infoapp.injection.model.data.dto.Link;
 import test.infoapp.injection.model.data.dto.ListContent;
 import test.infoapp.injection.model.data.dto.ListItem;
 import test.infoapp.injection.model.data.dto.Spoiler;
 import test.infoapp.injection.model.data.dto.Style;
+import test.infoapp.injection.model.data.dto.StylesResponse;
+import test.infoapp.injection.model.data.dto.buttons.ButtonsResponse;
 import test.infoapp.injection.model.data.mapper.ApiResponseMapper;
 import test.infoapp.util.L;
 
 public class ContentRepository extends BaseRepository {
     private static final String TAG = ContentRepository.class.getSimpleName();
+    private static final String KEY_CACHE_LIST_CONTENT = TAG + "_CACHE_LIST_CONTENT";
 
     private ConfigRepository configRepository;
 
@@ -31,19 +40,37 @@ public class ContentRepository extends BaseRepository {
         this.configRepository = configRepository;
     }
 
-    public Single<ListContent> content() {
+    public Observable<ListContent> content() {
         Config config = configRepository.getConfigSaved();
 
-        return Single.zip(
-                api.getContent(config.getContentUrl()).map(apiResponseMapper::map),
-                api.getButtons(config.getContentButtons()).map(apiResponseMapper::map),
-                api.getStyles(config.getConfigButtonUrl()).map(apiResponseMapper::map),
+        Function3<ContentResponse, ButtonsResponse, StylesResponse, ListContent> function3 =
                 (contentResponse, buttonsResponse, stylesResponse) -> parseContent(
                         contentResponse.getImageBg(),
                         contentResponse.getBgColor(),
                         contentResponse.getList(),
                         buttonsResponse.getLinks(),
-                        stylesResponse.getStyles()));
+                        stylesResponse.getStyles());
+
+        return Observable.combineLatest(
+                api.getContent(config.getContentUrl()).map(apiResponseMapper::map),
+                api.getButtons(config.getContentButtons()).map(apiResponseMapper::map),
+                api.getStyles(config.getConfigButtonUrl()).map(apiResponseMapper::map),
+                function3)
+                .startWith(getCachedListContent())
+                .doOnNext(this::cacheListContent);
+    }
+
+    private void cacheListContent(ListContent listContent) {
+        if (listContent == null) return;
+        Paper.book().write(KEY_CACHE_LIST_CONTENT, listContent);
+    }
+
+    private ListContent getCachedListContent() {
+        return Paper.book().read(KEY_CACHE_LIST_CONTENT,
+                new ListContent(
+                        null,
+                        ColorHelper.parseColor(Style.DEFAULT_COLOR, Color.BLACK),
+                        Collections.emptyList()));
     }
 
     public ListContent parseContent(String imageBg, int colorBg,

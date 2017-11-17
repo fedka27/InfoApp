@@ -46,19 +46,21 @@ public class ListPresenter implements ListContract.Presenter {
 
     @Override
     public void onStart() {
+        this.view.configureAds(configRepository.getConfigSaved());
         loadData();
-        view.configureAds(configRepository.getConfigSaved());
     }
 
     private void loadData() {
+        compositeDisposable.clear();
         compositeDisposable.add(contentRepository.content()
-                .compose(rxSchedulersAbs.getIOToMainTransformerSingle())
-                .compose(viewInteractor.manageProgressSingle(view))
-                .subscribe(content -> {
-                            view.loadBgOrParseColor(content.getImageBg(), content.getBgColor());
-                            view.setList(content.getItems());
-                        },
-                        throwable -> viewInteractor.manageError(view, throwable)));
+                .compose(rxSchedulersAbs.getIOToMainTransformer())
+                .compose(viewInteractor.manageProgressObservable(view))
+                .doOnNext(content -> {
+                    view.loadBgOrParseColor(content.getImageBg(), content.getBgColor());
+                    view.setList(content.getItems());
+                })
+                .subscribe(v -> {
+                }, throwable -> viewInteractor.manageError(view, throwable)));
 
     }
 

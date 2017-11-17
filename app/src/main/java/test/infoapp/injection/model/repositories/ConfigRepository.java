@@ -1,7 +1,7 @@
 package test.infoapp.injection.model.repositories;
 
 import io.paperdb.Paper;
-import io.reactivex.Single;
+import io.reactivex.Observable;
 import test.infoapp.injection.model.data.api.Api;
 import test.infoapp.injection.model.data.dto.Config;
 import test.infoapp.injection.model.data.mapper.ApiResponseMapper;
@@ -26,11 +26,11 @@ public class ConfigRepository extends BaseRepository {
         Paper.book().write(KEY_CONFIG, config);
     }
 
-    public Single<Config> getConfig() {
+    public Observable<Config> getConfig() {
         return api.getConfig()
                 .map(apiResponseMapper::map)
                 .onErrorReturn(throwable -> new Config())
-                .doOnSuccess(this::saveConfig);
+                .doOnNext(this::saveConfig);
     }
 
 }

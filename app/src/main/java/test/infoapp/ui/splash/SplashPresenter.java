@@ -46,85 +46,72 @@ public class SplashPresenter implements SplashContract.Presenter {
         }
 
         compositeDisposable.add(configRepository.getConfig()
-                .compose(rxSchedulersAbs.getComputationToMainTransformerSingle())
+                .compose(rxSchedulersAbs.getComputationToMainTransformer())
                 .subscribe(this::showAdsOrOpenNextScreen));
     }
 
     private void showAdsOrOpenNextScreen(Config config) {
-        if (!config.isAds() || !config.isAdsSplash()) {
+
+        boolean isShowVideo = adsManager.showAdsOfType(config, view);
+
+        if (!isShowVideo) {
             runNextActivity(config.isOffline());
             return;
         }
+        Appodeal.setInterstitialCallbacks(new InterstitialCallbacks() {
+            @Override
+            public void onInterstitialLoaded(boolean b) {
 
-        boolean isVideo = adsManager.isVideoTypeAds(config.getAds_video(), config.getAds_interstetial());
-
-        if (!isVideo) {
-            if (!Appodeal.isLoaded(Appodeal.INTERSTITIAL)) {
-                runNextActivity(config.isOffline());
-                return;
             }
-            Appodeal.setInterstitialCallbacks(new InterstitialCallbacks() {
-                @Override
-                public void onInterstitialLoaded(boolean b) {
 
-                }
-
-                @Override
-                public void onInterstitialFailedToLoad() {
-                }
-
-                @Override
-                public void onInterstitialShown() {
-                }
-
-                @Override
-                public void onInterstitialClicked() {
-
-                }
-
-                @Override
-                public void onInterstitialClosed() {
-                    runNextActivity(config.isOffline());
-                }
-            });
-            view.showAdsInterstitial();
-        } else {
-            if (!Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO)) {
-                runNextActivity(config.isOffline());
-                return;
+            @Override
+            public void onInterstitialFailedToLoad() {
             }
-            Appodeal.setNonSkippableVideoCallbacks(new NonSkippableVideoCallbacks() {
-                @Override
-                public void onNonSkippableVideoLoaded() {
 
-                }
+            @Override
+            public void onInterstitialShown() {
+            }
 
-                @Override
-                public void onNonSkippableVideoFailedToLoad() {
-                    runNextActivity(config.isOffline());
+            @Override
+            public void onInterstitialClicked() {
 
-                }
+            }
 
-                @Override
-                public void onNonSkippableVideoShown() {
+            @Override
+            public void onInterstitialClosed() {
+                runNextActivity(config.isOffline());
+            }
+        });
 
-                }
+        Appodeal.setNonSkippableVideoCallbacks(new NonSkippableVideoCallbacks() {
+            @Override
+            public void onNonSkippableVideoLoaded() {
 
-                @Override
-                public void onNonSkippableVideoFinished() {
+            }
 
-                }
+            @Override
+            public void onNonSkippableVideoFailedToLoad() {
+            }
 
-                @Override
-                public void onNonSkippableVideoClosed(boolean b) {
-                    runNextActivity(config.isOffline());
-                }
-            });
-            view.showAdsVideo();
-        }
+            @Override
+            public void onNonSkippableVideoShown() {
+
+            }
+
+            @Override
+            public void onNonSkippableVideoFinished() {
+
+            }
+
+            @Override
+            public void onNonSkippableVideoClosed(boolean b) {
+                runNextActivity(config.isOffline());
+            }
+        });
     }
 
-    private void runNextActivity(boolean offline) {
+
+    private synchronized void runNextActivity(boolean offline) {
         if (offline) {
             view.openLocalActivity();
         } else {

@@ -41,6 +41,7 @@ public class PresenterModule {
     }
 
     @Provides
+    @PresenterScope
     ListContract.Presenter provideListPresenter(ConfigRepository configRepository,
                                                 ContentRepository contentRepository,
                                                 AdsManager adsClickManager,

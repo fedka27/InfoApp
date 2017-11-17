@@ -1,11 +1,8 @@
 package test.infoapp.ui.base;
 
-import android.os.Bundle;
 import android.support.annotation.DrawableRes;
-import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,11 +34,6 @@ public abstract class BaseActivity extends AppCompatActivity implements IProgres
     }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public void setContentView(@LayoutRes int layoutResID) {
         setContentView(LayoutInflater.from(this).inflate(layoutResID, null, false));
     }
@@ -68,25 +60,6 @@ public abstract class BaseActivity extends AppCompatActivity implements IProgres
         Appodeal.initialize(this, adsKey, Appodeal.INTERSTITIAL | Appodeal.REWARDED_VIDEO | Appodeal.BANNER);
     }
 
-    public void showRootFragment(@IdRes int container, Fragment fragment) {
-        while (getSupportFragmentManager().getBackStackEntryCount() != 0) {
-            getSupportFragmentManager().popBackStackImmediate();
-        }
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(container, fragment, fragment.getClass().getSimpleName())
-                .commitAllowingStateLoss();
-    }
-
-    public void showFragment(@IdRes int container, Fragment fragment) {
-        while (getSupportFragmentManager().getBackStackEntryCount() != 0) {
-            getSupportFragmentManager().popBackStackImmediate();
-        }
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(container, fragment, fragment.getClass().getSimpleName())
-                .commitAllowingStateLoss();
-    }
 
     @Override
     public void showProgress() {

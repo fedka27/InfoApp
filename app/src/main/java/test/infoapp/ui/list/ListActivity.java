@@ -1,11 +1,12 @@
 package test.infoapp.ui.list;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
@@ -38,9 +39,8 @@ public class ListActivity extends BaseActivity implements ListContract.View {
 
     private ListAdapter listAdapter;
 
-    public static void start(Context context) {
-        Intent intent = new Intent(context, ListActivity.class);
-        context.startActivity(intent);
+    public static void start(Activity activity) {
+        activity.startActivity(new Intent(activity, ListActivity.class));
     }
 
     @Override
@@ -55,15 +55,12 @@ public class ListActivity extends BaseActivity implements ListContract.View {
         setContentView(R.layout.activity_list);
 
         listAdapter = new ListAdapter(presenter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(listAdapter);
 
         swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
         swipeRefreshLayout.setOnRefreshListener(presenter);
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
         presenter.onStart();
     }
 
@@ -100,8 +97,12 @@ public class ListActivity extends BaseActivity implements ListContract.View {
     }
 
     @Override
+    public void showProgress() {
+        swipeRefreshLayout.setRefreshing(true);
+    }
+
+    @Override
     public void hideProgress() {
-        super.hideProgress();
         swipeRefreshLayout.setRefreshing(false);
     }
 

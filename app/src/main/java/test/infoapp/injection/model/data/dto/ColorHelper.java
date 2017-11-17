@@ -2,9 +2,11 @@ package test.infoapp.injection.model.data.dto;
 
 import android.graphics.Color;
 
-public class ColorHelper {
+import java.io.Serializable;
 
-    protected int parseColor(String color, int defaultColor) {
+public class ColorHelper implements Serializable {
+
+    public static int parseColor(String color, int defaultColor) {
         if (color == null) return defaultColor;
         if (!color.startsWith("#")) color = "#" + color;
         try {

@@ -11,6 +11,7 @@ public class Spoiler implements Serializable {
     @SerializedName("image") private String image;
 
     private Style style;
+    private boolean isOpen;
 
     public Spoiler(Spoiler spoiler, Style style) {
         this.buttonText = spoiler.getButtonText();
@@ -38,5 +39,17 @@ public class Spoiler implements Serializable {
 
     public Style getStyle() {
         return style;
+    }
+
+    public boolean isOpen() {
+        return isOpen;
+    }
+
+    public void setOpen(boolean open) {
+        isOpen = open;
+    }
+
+    public boolean isImage() {
+        return image != null;
     }
 }

@@ -1,6 +1,8 @@
 package test.infoapp.injection.model.data.dto;
 
-public class Item {
+import java.io.Serializable;
+
+public class Item implements Serializable {
 
     private Link link;
     private Spoiler spoiler;

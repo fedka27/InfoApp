@@ -1,7 +1,7 @@
 package test.infoapp.injection.model.data.api;
 
 
-import io.reactivex.Single;
+import io.reactivex.Observable;
 import retrofit2.adapter.rxjava2.Result;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -14,18 +14,18 @@ import test.infoapp.injection.model.data.dto.buttons.ButtonsResponse;
 public interface Api {
     @GET("fedka27/InfoApp-api/master/config.json")
     @Json
-    Single<Result<Config>> getConfig();
+    Observable<Result<Config>> getConfig();
 
     @GET("{path}")
     @Json
-    Single<Result<StylesResponse>> getStyles(@Path("path") String stylesUrl);
+    Observable<Result<StylesResponse>> getStyles(@Path("path") String stylesUrl);
 
     @GET("{path}")
     @Json
-    Single<Result<ContentResponse>> getContent(@Path("path") String contentUrl);
+    Observable<Result<ContentResponse>> getContent(@Path("path") String contentUrl);
 
     @GET("{path}")
     @Json
-    Single<Result<ButtonsResponse>> getButtons(@Path("path") String buttonsUrl);
+    Observable<Result<ButtonsResponse>> getButtons(@Path("path") String buttonsUrl);
 }
 

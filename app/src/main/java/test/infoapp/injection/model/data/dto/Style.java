@@ -4,10 +4,14 @@ import android.graphics.Color;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Style extends ColorHelper {
+import java.io.Serializable;
+
+import static test.infoapp.injection.model.data.dto.ColorHelper.parseColor;
+
+public class Style implements Serializable {
+    public final static String DEFAULT_COLOR = "#3F51B5"; //blue
     private static final int MAX_CORNER_RADIUS = 40;
     private static final int DEF_CORNER_RADIUS = 8;
-
     @SerializedName("id") private long id;
     @SerializedName("color") private String color;
     @SerializedName("border_color") private String border_color;
@@ -30,7 +34,7 @@ public class Style extends ColorHelper {
 
     public static Style getDefaultStyle() {
         return new Style(-1,
-                "#3F51B5",
+                DEFAULT_COLOR,
                 "#000000",
                 "#000000",
                 DEF_CORNER_RADIUS);

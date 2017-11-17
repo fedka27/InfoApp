@@ -1,8 +1,9 @@
 package test.infoapp.injection.model.data.dto;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ListContent {
+public class ListContent implements Serializable {
     private String imageBg;
     private int bgColor;
     private List<Item> items;

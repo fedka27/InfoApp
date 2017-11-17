@@ -25,7 +25,6 @@ public class UtilsModule {
     }
 
     @Provides
-    @Singleton
     CompositeDisposable provideCompositeDisposable() {
         return new CompositeDisposable();
     }

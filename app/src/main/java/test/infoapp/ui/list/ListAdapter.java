@@ -190,10 +190,43 @@ public class ListAdapter extends BaseRecyclerAdapter {
 
                 adapterPresenter.onClick(spoiler);
 
-                TransitionManager.beginDelayedTransition(containerSpoiler);
-                textView.setVisibility(textView.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
-                imageView.setVisibility(spoiler.getImage() != null && imageView.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
+                toggleSpoiler(spoiler);
             });
+
+            if (spoiler.isOpen()) {
+                openSpoiler(spoiler.isImage());
+            } else {
+                closeSpoiler(spoiler.isImage());
+            }
+        }
+
+        private void toggleSpoiler(Spoiler spoiler) {
+            boolean isOpen = textView.getVisibility() != View.GONE;
+
+            if (isOpen) {
+                closeSpoiler(spoiler.isImage());
+            } else {
+                openSpoiler(spoiler.isImage());
+            }
+            isOpen = textView.getVisibility() != View.GONE;
+
+            spoiler.setOpen(isOpen);
+        }
+
+        private void openSpoiler(boolean isImage) {
+            TransitionManager.beginDelayedTransition(containerSpoiler);
+            textView.setVisibility(View.VISIBLE);
+            if (isImage) {
+                imageView.setVisibility(View.VISIBLE);
+            }
+        }
+
+        private void closeSpoiler(boolean isImage) {
+            TransitionManager.beginDelayedTransition(containerSpoiler);
+            textView.setVisibility(View.GONE);
+            if (isImage) {
+                imageView.setVisibility(View.GONE);
+            }
         }
     }
 
