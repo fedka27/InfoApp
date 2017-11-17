@@ -27,8 +27,9 @@ public class RepositoriesModule {
     @Provides
     @Singleton
     ConfigRepository provideConfigRepository(Api api,
-                                             ApiResponseMapper apiResponseMapper) {
-        return new ConfigRepository(api, apiResponseMapper);
+                                             ApiResponseMapper apiResponseMapper,
+                                             Context context) {
+        return new ConfigRepository(api, apiResponseMapper, context.getResources());
     }
 
 
