@@ -12,7 +12,7 @@
     layout - разметки
     values - прочее ( цвета, строки, стили, ключи )
 
-!!!) Тулбар InfoApp\app\src\main\res\layout\toolbar.xml
+!!!)Тулбар InfoApp\app\src\main\res\layout\toolbar.xml
      Он располагается на главном(оффлайн экране) и списке.
      Если его менять - поменяется он двух экранах.
 
@@ -29,6 +29,11 @@
      ads_banner = false;
      ads_click_interval = 5;
 
+0) Замена иконки:
+   /InfoApp/app/src/main/res/ папки mipmap ( mdpi, hdpi, xhdpi, xxhdpi, xxxhdpi )
+   Указывается в InfoApp\app\src\main\AndroidManifest.xml -> <application...android:icon="@mipmap/ic_launcher"
+   Можно использовать https://romannurik.github.io/AndroidAssetStudio/icons-launcher.html
+   для генерации иконок.
 
 1)  Сплеш экран:
 
@@ -94,4 +99,6 @@
          DEF_CORNER_RADIUS = 8;
 
          Стиль по дефолту применяется в случае, если не находится в списке стилей.
+
+
 
