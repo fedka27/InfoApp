@@ -10,8 +10,12 @@ import static test.infoapp.injection.model.data.dto.ColorHelper.parseColor;
 
 public class Style implements Serializable {
     public final static String DEFAULT_COLOR = "#3F51B5"; //blue
+    public final static String DEFAULT_BORDER_COLOR = "#000000"; //black
+    public final static String DEFAULT_TEXT_COLOR = "#000000"; //black
+
     private static final int MAX_CORNER_RADIUS = 40;
     private static final int DEF_CORNER_RADIUS = 8;
+
     @SerializedName("id") private long id;
     @SerializedName("color") private String color;
     @SerializedName("border_color") private String border_color;
@@ -35,8 +39,8 @@ public class Style implements Serializable {
     public static Style getDefaultStyle() {
         return new Style(-1,
                 DEFAULT_COLOR,
-                "#000000",
-                "#000000",
+                DEFAULT_BORDER_COLOR,
+                DEFAULT_TEXT_COLOR,
                 DEF_CORNER_RADIUS);
     }
 

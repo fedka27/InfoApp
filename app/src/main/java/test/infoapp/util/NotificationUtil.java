@@ -54,7 +54,7 @@ public class NotificationUtil {
 
     public void showProgress(@StringRes int res) {
         showSnackBarNotification(context.getString(res), LENGTH_INDEFINITE,
-                R.color.processign, null, null);
+                R.color.processing, null, null);
     }
 
     public void showToast(String message) {
