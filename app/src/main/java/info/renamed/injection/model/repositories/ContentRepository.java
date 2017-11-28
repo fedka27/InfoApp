@@ -66,11 +66,19 @@ public class ContentRepository extends BaseRepository {
     }
 
     private ListContent getCachedListContent() {
-        return Paper.book().read(KEY_CACHE_LIST_CONTENT,
-                new ListContent(
-                        null,
-                        ColorHelper.parseColor(Style.DEFAULT_COLOR, Color.BLACK),
-                        Collections.emptyList()));
+        try {
+            return Paper.book().read(KEY_CACHE_LIST_CONTENT,
+                    new ListContent(
+                            null,
+                            ColorHelper.parseColor(Style.DEFAULT_COLOR, Color.BLACK),
+                            Collections.emptyList()));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ListContent(
+                    null,
+                    ColorHelper.parseColor(Style.DEFAULT_COLOR, Color.BLACK),
+                    Collections.emptyList());
+        }
     }
 
     public ListContent parseContent(String imageBg, int colorBg,

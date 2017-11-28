@@ -20,7 +20,13 @@ public class ConfigRepository extends BaseRepository {
     }
 
     public Config getConfigSaved() {
-        return Paper.book().read(KEY_CONFIG, new Config());
+        try {
+            return Paper.book().read(KEY_CONFIG, new Config());
+        } catch (Exception e) {
+            e.printStackTrace();
+            Paper.book().delete(KEY_CONFIG);
+            return new Config();
+        }
     }
 
     public void saveConfig(Config config) {
