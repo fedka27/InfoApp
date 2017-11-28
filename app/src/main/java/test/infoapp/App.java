@@ -50,7 +50,7 @@ public class App extends MultiDexApplication {
     }
 
     private void initMetrica() {
-        YandexMetrica.activate(this, "dc113206-b617-44db-9b7e-70bc6ad46b99");
+        YandexMetrica.activate(this, getString(R.string.key_metrica));
         YandexMetrica.enableActivityAutoTracking(this);
 
         Appodeal.setBannerCallbacks(new BannerCallbacks() {

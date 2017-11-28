@@ -6,19 +6,19 @@
     Рекомендуемо менять только версию и имя приложения ( versionName, versionCode )
     Для правильного версионирования желательно прочитать - https://semver.org/lang/ru/
 
-!!) Все строки, цвета, отступы и прочие ресурсы находятся в InfoApp\app\src\main\res
+!!) Все строки, цвета, отступы и прочие ресурсы находятся в InfoApp/app/src/main/res
     font - шрифты
     menu - меню
     layout - разметки
     values - прочее ( цвета, строки, стили, ключи )
 
-!!!)Тулбар InfoApp\app\src\main\res\layout\toolbar.xml
+!!!)Тулбар InfoApp/app/src/main/res/layout/toolbar.xml
      Он располагается на главном(оффлайн экране) и списке.
      Если его менять - поменяется он двух экранах.
 
 !!!!)Замена дефолтного конфига ( используется в случае ошибки разбора данных с сервера )
      по пути
-     InfoApp\app\src\main\java\test\infoapp\injection\model\data\dto\Config.java
+     InfoApp/app/src/main/java/test/infoapp/injection/model/data/dto/Config.java
      менять можно только верхние значения, т.е:
 
      isOffline = true;
@@ -31,7 +31,7 @@
 
 0) Замена иконки:
    /InfoApp/app/src/main/res/ папки mipmap ( mdpi, hdpi, xhdpi, xxhdpi, xxxhdpi )
-   Указывается в InfoApp\app\src\main\AndroidManifest.xml -> <application...android:icon="@mipmap/ic_launcher"
+   Указывается в InfoApp/app/src/main/AndroidManifest.xml -> <application...android:icon="@mipmap/ic_launcher"
    Можно использовать https://romannurik.github.io/AndroidAssetStudio/icons-launcher.html
    для генерации иконок.
 
@@ -60,36 +60,36 @@
 
          !!!Нигде не менять атрибут id.
 
-         1.2.1) Разметка в полном виде InfoApp\app\src\main\res\layout\activity_main.xml
-         1.2.2) Разметка только экрана без меню InfoApp\app\src\main\res\layout\app_bar_main.xml
-         1.2.3) (Шапка) Верхняя разметка меню InfoApp\app\src\main\res\layout\nav_header_main.xml
+         1.2.1) Разметка в полном виде InfoApp/app/src/main/res/layout/activity_main.xml
+         1.2.2) Разметка только экрана без меню InfoApp/app/src/main/res/layout/app_bar_main.xml
+         1.2.3) (Шапка) Верхняя разметка меню InfoApp/app/src/main/res/layout/nav_header_main.xml
                 Для замены картинки нужно заменить @drawable/ikonka на нужную.
                 Также если разобраться с версткой, можно без кода добавить/поменять дизайн шапки.
 
-         1.2.4) Список меню InfoApp\app\src\main\res\menu\activity_main_drawer.xml
+         1.2.4) Список меню InfoApp/app/src/main/res/menu/activity_main_drawer.xml
                 Возможно добавить иконки к пунктам меню, прочитать можно тут
                 https://developer.android.com/guide/topics/ui/menus.html?hl=ru
 
         2)   Ресурсы
 
-    2.1) Для замены текстов главного экрана InfoApp\app\src\main\res\values\strings_main.xml
+    2.1) Для замены текстов главного экрана InfoApp/app/src/main/res/values/strings_main.xml
 
     2.2) Замена изображений производится в папках drawable, менять точно так же как и сплеш, во всех
          папках с сохранением названия.
 
-    2.3) Изменение цвета фона: По пути к цветам InfoApp\app\src\main\res\values\colors.xml
+    2.3) Изменение цвета фона: По пути к цветам InfoApp/app/src/main/res/values/colors.xml
          нужно заменить атрибут main_bg.
 
 
 3)  Список, ссылки и спойлеры:
 
-    3.1) Цвет фона - InfoApp\app\src\main\res\values\colors.xml - атрибут - list_bg
+    3.1) Цвет фона - InfoApp/app/src/main/res/values/colors.xml - атрибут - list_bg
 
-    3.2) Разметка ссылки-Link - \InfoApp\app\src\main\res\layout\item_list_link.xml
+    3.2) Разметка ссылки-Link - /InfoApp/app/src/main/res/layout/item_list_link.xml
 
-    3.3) Разметка кнопки-Spoiler - \InfoApp\app\src\main\res\layout\item_list_spoiler.xml
+    3.3) Разметка кнопки-Spoiler - /InfoApp/app/src/main/res/layout/item_list_spoiler.xml
 
-    3.4) Замена деволтного стиля InfoApp\app\src\main\java\test\infoapp\injection\model\data\dto\Style.java
+    3.4) Замена деволтного стиля InfoApp/app/src/main/java/test/infoapp/injection/model/data/dto/Style.java
          Цвет кнопки по дефолту DEFAULT_COLOR = "#3F51B5"; //blue
          Цвет линии по периметру кнопки DEFAULT_BORDER_COLOR = "#000000" //black
          Цвет текста кнопки DEFAULT_TEXT_COLOR = "#000000" //black
@@ -99,6 +99,16 @@
          DEF_CORNER_RADIUS = 8;
 
          Стиль по дефолту применяется в случае, если не находится в списке стилей.
+
+
+4) Остальное ( ключи, ссылки на конфиги, смена id )
+
+    4.1) Ключи располагаются - InfoApp\app\src\main\res\values\strings_metrica.xml
+
+    4.2) Ссылка на дефолтный конфиг - InfoApp\app\src\main\res\values\strings.xml
+         Параметр - base_url_config
+
+    4.3) Смена id
 
 
 

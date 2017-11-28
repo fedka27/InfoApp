@@ -12,7 +12,6 @@ import test.infoapp.injection.model.data.dto.StylesResponse;
 import test.infoapp.injection.model.data.dto.buttons.ButtonsResponse;
 
 public interface Api {
-    //    sanekmin/InfoApp-api/master/config.json
     @GET
     @Json
     Observable<Result<Config>> getConfig(@Url String url);
