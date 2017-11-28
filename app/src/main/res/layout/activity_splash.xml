@@ -3,6 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="test.infoapp.ui.splash.SplashActivity">
+    tools:context="info.renamed.ui.splash.SplashActivity">
 
 </android.support.constraint.ConstraintLayout>

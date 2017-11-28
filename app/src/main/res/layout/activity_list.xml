@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/list_bg"
     android:orientation="vertical"
-    tools:context="test.infoapp.ui.list.ListActivity">
+    tools:context="info.renamed.ui.list.ListActivity">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"

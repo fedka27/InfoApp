@@ -108,7 +108,18 @@
     4.2) Ссылка на дефолтный конфиг - InfoApp\app\src\main\res\values\strings.xml
          Параметр - base_url_config
 
-    4.3) Смена id
+    4.3) Смена названия пакета:
+         -Перейти в манифест ( InfoApp\app\src\main\AndroidManifest.xml )
+         -В поле package="..." выбрать нужный пакет для переименования, навести курсор
+         -ПКМ - Refactor - Rename или Shift+F6
+         -Нажать Rename Package
+         -Убрать все галочки и нажать Refactor, далее внизу справа появится окошко в котором нужно нажать Do Refactor
+
+    4.4) Смена id:
+         -Перейти в гредл - InfoApp\app\build.gradle
+         -Поменять id в поле applicationId на нужный
+         -Пересобрать проект
+
 
 
 
