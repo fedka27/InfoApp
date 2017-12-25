@@ -2,16 +2,12 @@ package info.renamed.injection.api;
 
 import android.content.Context;
 
-import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 import info.renamed.R;
 import info.renamed.injection.api.converter_factory.GsonXmlConverter;
 import info.renamed.injection.model.data.api.Api;
-import okhttp3.Cache;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -29,7 +25,7 @@ public class ApiInstance {
                 .baseUrl(context.getString(R.string.base_url))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(getMultipleConverter())
-                .client(getClient(context))
+                .client(getClient())
                 .build()
                 .create(Api.class);
     }
@@ -40,28 +36,13 @@ public class ApiInstance {
                 GsonConverterFactory.create());
     }
 
-    private static Cache getCache(Context context) {
-        File httpCacheDirectory = new File(context.getCacheDir(), "responses");
-        int cacheSize = 10 * 1024 * 1024; // 10 MiB
-        return new Cache(httpCacheDirectory, cacheSize);
-    }
-
-    public static OkHttpClient getClient(Context context) {
+    public static OkHttpClient getClient() {
         return new OkHttpClient.Builder()
-//                .cache(getCache(context))
-                .addInterceptor(getLoggingInterceptor())
-                .addNetworkInterceptor(getLoggingInterceptor())
                 .retryOnConnectionFailure(true)
                 .connectTimeout(CONNECT_TIMEOUT_SECONDS, TimeUnit.SECONDS)
                 .readTimeout(READ_TIMEOUT_SECONDS, TimeUnit.SECONDS)
                 .writeTimeout(WRITE_TIMEOUT_SECONDS, TimeUnit.SECONDS)
                 .build();
-    }
-
-    private static Interceptor getLoggingInterceptor() {
-        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
-        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        return httpLoggingInterceptor;
     }
 
 }
