@@ -12,8 +12,8 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
-    dexOptions {
-        javaMaxHeapSize "4g"
+    lintOptions {
+        abortOnError false
     }
     buildTypes {
         release {
@@ -28,7 +28,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'], exclude: 'okhttp')
 
     implementation 'com.android.support:multidex:1.0.2'
 
@@ -48,7 +48,9 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     implementation 'com.squareup.retrofit2:converter-simplexml:2.2.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.1'
+    implementation ('com.squareup.okhttp3:logging-interceptor:3.8.1', {
+        exclude group:'httpclientz'
+    })
 
     implementation 'com.google.dagger:dagger:2.11'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.11'
@@ -56,15 +58,15 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
-    implementation 'com.google.android.gms:play-services-ads:10.2.1'
-    implementation 'com.google.android.gms:play-services-location:10.2.1'
+    implementation 'com.google.android.gms:play-services-ads:11.6.0'
+    implementation 'com.google.android.gms:play-services-location:11.6.0'
     implementation 'com.squareup.picasso:picasso:2.5.2'
 
     implementation project(':adcolony-sdk-3.1.2')
 
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'jp.wasabeef:glide-transformations:2.0.2'
+    implementation 'com.github.bumptech.glide:glide:3.6.0'
+    implementation 'jp.wasabeef:glide-transformations:2.0.2'
 
     // Paper
-    implementation 'io.paperdb:paperdb:2.1'
+    implementation 'io.paperdb:paperdb:2.6'
 }
