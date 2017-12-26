@@ -49,7 +49,11 @@ dependencies {
 
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-    implementation 'com.squareup.retrofit2:converter-simplexml:2.2.0'
+    implementation ('com.squareup.retrofit2:converter-simplexml:2.2.0') {
+        exclude group: 'xpp3', module: 'xpp3'
+        exclude group: 'stax', module: 'stax-api'
+        exclude group: 'stax', module: 'stax'
+    }
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
 
     implementation 'com.google.dagger:dagger:2.11'
